@@ -1,0 +1,27 @@
+.home-page {
+    background-image: url("/img/kobu-agency-ipARHaxETRk-unsplash.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    min-height: 140vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: white;
+}
+
+.home-title {
+    color: #353a46;
+}
+
+.books-link {
+    font-size: 22px;
+    padding: 10px 35px;
+    background-color: rgb(10, 145, 82);
+    color: #d9dfeb;
+    letter-spacing: 1.5px;
+    margin-top: 20px;
+    text-decoration: none;
+}    
