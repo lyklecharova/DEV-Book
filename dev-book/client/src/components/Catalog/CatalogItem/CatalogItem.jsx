@@ -1,8 +1,6 @@
 import { Link } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
 
 import * as BookService from '../../../../service/BookService';
-
 import style from '../Catalog.module.css';
 
 export const CatalogItem = ({
