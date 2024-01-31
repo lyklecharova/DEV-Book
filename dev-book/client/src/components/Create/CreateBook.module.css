@@ -1,0 +1,75 @@
+.main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  position: relative;
+}
+
+.main:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url("/img/growtika-FQ3lFA4Zi58-unsplash.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  z-index: -1;
+}
+
+.create-form {
+  max-width: 400px;
+  width: 100%;
+  padding: 20px;
+  background-color: #ffffff7c;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  backdrop-filter: blur(10px);
+  position: relative;
+  z-index: 1;
+}
+
+.create-form>div {
+  margin-bottom: 20px;
+}
+
+.create-textarea {
+  font-size: 18px;
+  margin-bottom: 8px;
+  color: #333;
+}
+
+.create-input {
+  width: 100%;
+  padding: 10px;
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+button {
+  background-color: #4caf50;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  width: 100%;
+}
+
+button:hover {
+  background-color: #45a049;
+}
+
+.error {
+  color: #912f36;
+  text-align: center;
+  position: sticky;
+  font-size: 20px;
+  margin: 5px;
+}
