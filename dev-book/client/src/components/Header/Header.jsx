@@ -1,7 +1,10 @@
+import { useContext } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 
-import style from './Header.module.css'
+import style from './Header.module.css';
+import { authContext } from '../../contexts/authContext';
 export const Header = () => {
+    const { isLog } = useContext(authContext);
     return (
 
         <header className={style['header']}>
@@ -25,44 +28,46 @@ export const Header = () => {
                         </NavLink>
                     </li>
 
-                    <li className={style['li-element']}>
-                        <NavLink style={({ isActive }) => ({
-                            color: isActive ? "#0077cc" : "#3F3F3F"
-                        })} to="/create-books">
-                            {/* create */}
-                            Add Book
-                        </NavLink>
-                    </li>
+                    {isLog && (
+                        <>
+                            <li className={style['li-element']}>
+                                <NavLink style={({ isActive }) => ({
+                                    color: isActive ? "#0077cc" : "#3F3F3F"
+                                })} to="/create-books">
+                                    Add Book
+                                </NavLink>
+                            </li>
 
-                    <li className={style['li-element']}>
-                        <NavLink style={({ isActive }) => ({
-                            color: isActive ? "#0077cc" : "#3F3F3F"
-                        })} to="/login">
-                            Login
-                        </NavLink>
-                    </li>
+                            <li className={style['li-element']}>
+                                <NavLink style={({ isActive }) => ({
+                                    color: isActive ? "#0077cc" : "#3F3F3F"
+                                })} to="/logout">
+                                    Logout
+                                </NavLink>
+                            </li>
+                        </>
+                    )}
+                    {!isLog && (
+                        <>
+                            <li className={style['li-element']}>
+                                <NavLink style={({ isActive }) => ({
+                                    color: isActive ? "#0077cc" : "#3F3F3F"
+                                })} to="/login">
+                                    Login
+                                </NavLink>
+                            </li>
 
-                    <li className={style['li-element']}>
-                        <NavLink style={({ isActive }) => ({
-                            color: isActive ? "#0077cc" : "#3F3F3F"
-                        })} to="/register">
-                            Register
-                        </NavLink>
-                    </li>
-
-                    <li className={style['li-element']}>
-                        <NavLink style={({ isActive }) => ({
-                            color: isActive ? "#0077cc" : "#3F3F3F"
-                        })} to="/logout">
-                            Logout
-                        </NavLink>
-                    </li>
-
-
+                            <li className={style['li-element']}>
+                                <NavLink style={({ isActive }) => ({
+                                    color: isActive ? "#0077cc" : "#3F3F3F"
+                                })} to="/register">
+                                    Register
+                                </NavLink>
+                            </li>
+                        </>
+                    )}
                 </ul>
             </nav>
         </header>
-
-
     )
 };
