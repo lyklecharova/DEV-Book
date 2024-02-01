@@ -129,7 +129,7 @@ export const CreateBook = () => {
                     <label htmlFor="additionalInfo" className={style['create-textarea']}>
                         Additional information
                     </label>
-                    <input
+                    <textarea
                         type="text"
                         id="info"
                         name="additionalInfo"
@@ -137,6 +137,9 @@ export const CreateBook = () => {
                         onChange={handleInputChange}
                         className={style['create-input']}
                         placeholder="Enter additional information...."
+                        rows="4"
+                        cols="50"
+                       
                     />
                 </div>
 

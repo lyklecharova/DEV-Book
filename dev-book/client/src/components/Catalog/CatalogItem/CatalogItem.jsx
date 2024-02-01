@@ -25,17 +25,22 @@ export const CatalogItem = ({
     return (
         <div className={style['items']}>
             <img className={style['items-image']} src={image} alt={image.title} />
+            <h2 className={style['items-title']}>{title}</h2>
+
             <div className={style['items-content']}>
-                <h2 className={style['items-title']}>{title}</h2>
-                <Link className={style['items-link']} to={url}>
+                {/* <Link className={style['items-link']} to={url}>
                     View Documentation
-                </Link>
+                </Link> */}
+                <div className={style['content-btn']}>
                 <Link className={style['items-edit']} to={`/books/${_id}/edit`}>
                     Edit
                 </Link>
-                <button onClick={deleteClickHandler}>Delete</button>
+                <button className={style['delete-button']} onClick={deleteClickHandler}>Delete</button>
+                <Link className={style['details-button']} to={`/books/${_id}`}>Details</Link>
+                </div>
+                
             </div>
-            <Link to={`/books/${_id}`}><button>Details</button></Link>
+            
         </div>
     );
 };
