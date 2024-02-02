@@ -30,7 +30,6 @@
   height: 125px;
   border-radius: 10%;
   opacity: 0.9;
-
 }
 
 .items-content {
@@ -46,7 +45,8 @@
   margin-bottom: 8px;
 }
 
-.content-btn {
+.content-btn,
+.content-details-btn {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -55,8 +55,8 @@
 }
 
 .delete-button,
-.details-button,
-.items-edit {
+.items-edit,
+.details-button {
   background-color: #2db583;
   font-weight: 600;
   letter-spacing: 1px;
@@ -72,8 +72,8 @@
 }
 
 .delete-button:hover,
-.details-button:hover,
-.items-edit:hover {
+.items-edit:hover,
+.details-button:hover {
   background-color: #FFF;
   color: #09bb7a
 }
