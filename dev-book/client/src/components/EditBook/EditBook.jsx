@@ -5,10 +5,8 @@ import style from './EditBook.module.css';
 import * as BookService from '../../../service/BookService';
 
 export const EditBook = () => {
-
     const nav = useNavigate();
     const { bookId } = useParams();
-
     const [book, setBook] = useState({
         title: '',
         image: '',
@@ -17,7 +15,6 @@ export const EditBook = () => {
     });
 
     const [bookError, setBookError] = useState({});
-    
 
     //Mount
     useEffect(() => {
@@ -25,36 +22,36 @@ export const EditBook = () => {
             .then(result => {
                 setBook(result);
             });
-    }, [bookId])
+    }, [bookId]);
 
     const editBookSubmitHandler = async (e) => {
         e.preventDefault();
         const err = {};
         if (book.image.trim() === '') {
-            err.imageError = 'You should upload image!'
+            err.imageError = 'You should upload image!';
         }
 
         if (book.title.trim() === '') {
-            err.titleError = 'You should write title of book!'
+            err.titleError = 'You should write title of book!';
         }
 
         if (book.url.trim() === '') {
-            err.urlError = 'You should upload URL link!'
+            err.urlError = 'You should upload URL link!';
         }
 
         if (book.additionalInfo.trim() === '') {
-            err.additionalInfoError = 'You should write additional information!'
+            err.additionalInfoError = 'You should write additional information!';
         }
         setBookError(err);
 
         if (Object.keys(err).length === 0) {
-            // Отстраняване на проблема с имената на полетата в тялото на заявката
-        const editedBook = {
-            title: e.currentTarget.title.value,
-            image: e.currentTarget.image.value,
-            url: e.currentTarget.url.value,
-            additionalInfo: e.currentTarget.additionalInfo.value
-        };
+            // extract data from the form to create an object with values entered by the user
+            const editedBook = {
+                title: e.currentTarget.title.value,
+                image: e.currentTarget.image.value,
+                url: e.currentTarget.url.value,
+                additionalInfo: e.currentTarget.additionalInfo.value
+            };
             try {
                 await BookService.editBook(book, editedBook);
                 nav('/catalog');
@@ -89,9 +86,9 @@ export const EditBook = () => {
 
                     />
                 </div>
-                        {bookError.titleError && (
-                            <p className={style['error']}>{bookError.titleError}</p>
-                        )}
+                {bookError.titleError && (
+                    <p className={style['error']}>{bookError.titleError}</p>
+                )}
 
                 <div>
                     <label htmlFor="image" className={style['create-textarea']}>
@@ -108,9 +105,9 @@ export const EditBook = () => {
 
                     />
                 </div>
-                        {bookError.imageError && (
-                            <p className={style['error']}>{bookError.imageError}</p>
-                        )}
+                {bookError.imageError && (
+                    <p className={style['error']}>{bookError.imageError}</p>
+                )}
 
                 <div>
                     <label htmlFor="documentationURL" className={style['create-textarea']}>
@@ -127,17 +124,19 @@ export const EditBook = () => {
 
                     />
                 </div>
-                        {bookError.urlError && (
-                            <p className={style['error']}>{bookError.urlError}</p>
-                        )}
+                {bookError.urlError && (
+                    <p className={style['error']}>{bookError.urlError}</p>
+                )}
                 <div>
                     <label htmlFor="additionalInfo" className={style['create-textarea']}>
                         Additional Information
                     </label>
-                    <input
+                    <textarea
                         type="text"
                         id="additionalInfo"
                         name="additionalInfo"
+                        rows="4"
+                        cols="50"
                         value={book.additionalInfo}
                         onChange={onChange}
                         className={style['create-input']}
@@ -145,12 +144,11 @@ export const EditBook = () => {
 
                     />
                 </div>
-                        {bookError.additionalInfoError && (
-                            <p className={style['error']}>{bookError.additionalInfoError}</p>
-                        )}
+                {bookError.additionalInfoError && (
+                    <p className={style['error']}>{bookError.additionalInfoError}</p>
+                )}
                 <button type="submit">Edit</button>
             </form>
         </div>
     );
-
 };
