@@ -2,9 +2,9 @@ import { useContext } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 
 import style from './Header.module.css';
-import { authContext } from '../../contexts/authContext';
+import { AuthContext } from '../../contexts/authContext';
 export const Header = () => {
-    const { isLog } = useContext(authContext);
+    const { isLog } = useContext(AuthContext);
     return (
 
         <header className={style['header']}>
@@ -69,5 +69,5 @@ export const Header = () => {
                 </ul>
             </nav>
         </header>
-    )
+    );
 };
