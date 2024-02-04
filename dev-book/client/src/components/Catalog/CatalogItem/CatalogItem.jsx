@@ -1,7 +1,7 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { useContext } from "react";
 
-import { authContext } from "../../../contexts/authContext";
+import { AuthContext } from "../../../contexts/authContext";
 import * as BookService from '../../../../service/BookService';
 import style from '../Catalog.module.css';
 
@@ -12,7 +12,7 @@ export const CatalogItem = ({
     ownerId,
     deleteHandler
 }) => {
-    const { userId } = useContext(authContext);
+    const { userId } = useContext(AuthContext);
     const nav = useNavigate();
 
     const deleteClickHandler = async () => {
