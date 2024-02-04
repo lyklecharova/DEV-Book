@@ -30,3 +30,17 @@
     letter-spacing: 1.5px;
     cursor: pointer;
 }
+
+.flav-icon {
+    color: #f9faff;
+    margin-left: 5px;
+    font-size: 1.5em;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+}
