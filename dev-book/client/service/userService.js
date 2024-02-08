@@ -13,7 +13,6 @@ export async function register(user) {
             throw new Error('Invalid registration');
         }
         const data = await response.json();
-        console.log(data)
         return data;
     } catch (error) {
         throw new Error('Invalid registration');
@@ -22,7 +21,7 @@ export async function register(user) {
 
 export async function login(user) {
     const url = `http://localhost:3030/user/login`;
-    
+
     try {
         const response = await fetch(url, {
             method: "POST",
@@ -35,7 +34,6 @@ export async function login(user) {
             throw new Error('Invalid login');
         }
         const data = await response.json();
-        console.log(data)
         return data;
     } catch (error) {
         throw new Error('Invalid login');
