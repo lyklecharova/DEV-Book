@@ -29,6 +29,8 @@ export const CreateBook = () => {
         e.preventDefault();
         if (book.image.trim() === '') {
             err.imageError = 'You should upload image!'
+        } else if (!/^https:\/\//i.test(book.image)) {
+            err.imageError = 'Image URL should start with "https://".';
         }
 
         if (book.title.trim() === '') {
@@ -37,6 +39,8 @@ export const CreateBook = () => {
 
         if (book.url.trim() === '') {
             err.urlError = 'You should upload URL link!'
+        } else if (!/^https:\/\//i.test(book.url)) {
+            err.urlError = 'URL should start with "https://".';
         }
 
         if (book.additionalInfo.trim() === '') {
