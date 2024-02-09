@@ -1,4 +1,4 @@
-export const MAX_STRENGTH_PASSWORD = 12;
+export const MAX_LENGTH_PASSWORD = 12;
                 // EMAIL
                             // ([^@\s]+): Matches one or more characters that are not "@" 
                                                 //or whitespace, representing the local part of the email address

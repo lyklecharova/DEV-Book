@@ -2,7 +2,7 @@ import { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { AuthContext } from '../../contexts/authContext';
-import { EMAIL_PATERN, MAX_STRENGTH_PASSWORD, PASSWORD_PATERN } from '../../constants/constants';
+import { EMAIL_PATERN, MAX_LENGTH_PASSWORD, PASSWORD_PATERN } from '../../constants/constants';
 import * as userService from '../../../service/userService';
 import style from './Register.module.css';
 
@@ -61,7 +61,7 @@ export const Register = () => {
         }
 
         const passwordStrength = checkPasswordStrength(password);
-        if (passwordStrength < MAX_STRENGTH_PASSWORD) {
+        if (passwordStrength < MAX_LENGTH_PASSWORD) {
             setError('Password should be at least 8 characters long\nand contain a mix of letters, numbers, and special characters.');
             return;
         }
