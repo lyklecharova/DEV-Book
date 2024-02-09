@@ -17,7 +17,6 @@
     background-position: center;
     background-repeat: no-repeat;
     z-index: -2;
-
 }
 
 .login-form {
@@ -71,6 +70,12 @@
     color: #3fffb8;
     text-align: center;
     margin-left: 145px;
+    display: flex;
+    flex-direction: column;
+}
+
+.register-link:hover {
+    background-color: #8aa4c5;
 }
 
 .error {

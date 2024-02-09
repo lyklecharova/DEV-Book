@@ -1,15 +1,15 @@
 import { useState, useContext } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 
+import { EMAIL_PATERN } from '../../constants/constants';
 import { AuthContext } from '../../contexts/authContext';
 import * as userService from '../../../service/userService';
-
 import style from './Login.module.css';
 
 export const Login = () => {
-    const { isLog, setIsAuthenticated } = useContext(AuthContext);
+    const { isLog, isAuthenticated } = useContext(AuthContext);
     const [error, setError] = useState(false);
-    const [errorMessage, setErrorMessage] = useState('');
+    const [errorMessage, setErrorMessage] = useState(null);
     const navigate = useNavigate();
 
     if (isLog) {
@@ -40,29 +40,30 @@ export const Login = () => {
         }
 
         // Email validation using regular expression
-        const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
-        if (!emailPattern.test(login.email)) {
+        if (!EMAIL_PATERN.test(login.email)) {
             setErrorMessage('Invalid email format');
             return;
         }
 
         try {
             const loginInformation = await userService.login(login);
-            
             // Assuming loginInformation indicates successful login
             if (loginInformation) {
                 localStorage.setItem("UserInfo", JSON.stringify(loginInformation));
                 // Update authentication state
-                setIsAuthenticated(true);
+                isAuthenticated(loginInformation);
                 console.log("Login successful:", loginInformation);
                 // Redirect to homepage after successful login
                 navigate('/');
             } else {
+                // If loginInformation is null or false, indicating unsuccessful login
                 setError(true);
+                setErrorMessage('Invalid email or password');
             }
         } catch (error) {
             console.error('Login failed:', error);
             setError(true);
+            setErrorMessage('Login failed. Please try again.');
         }
     };
 
@@ -86,7 +87,6 @@ export const Login = () => {
                         placeholder="Email..."
                     />
                 </div>
-                {errorMessage && <p className={style['error']}>{errorMessage}</p>}
 
                 <div className={style['form-group']}>
                     <label className={style['form-label']} htmlFor="password">
@@ -108,13 +108,13 @@ export const Login = () => {
 
                 <input type="submit" defaultValue="Login" className={style['form-button']} />
 
-                <p>
+                <div>
                     Do not have an account?
                     <br />
-                    <div className={style['register-link']}>
+                    <p className={style['register-link']}>
                         <NavLink to="/register">Register now!</NavLink>
-                    </div>
-                </p>
+                    </p>
+                </div>
             </form>
         </div>
     );
