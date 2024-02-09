@@ -1,8 +1,9 @@
 import { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import * as userService from '../../../service/userService';
 import { AuthContext } from '../../contexts/authContext';
+import { EMAIL_PATERN, MAX_STRENGTH_PASSWORD, PASSWORD_PATERN } from '../../constants/constants';
+import * as userService from '../../../service/userService';
 import style from './Register.module.css';
 
 export const Register = () => {
@@ -26,6 +27,16 @@ export const Register = () => {
         }));
     };
 
+    const checkPasswordStrength = (password) => {
+        // Check for length
+        if (!PASSWORD_PATERN.test(password)) {
+            // If password does not match the pattern, return 0
+            return 0;
+        }
+        // Otherwise, return the length of the password
+        return password.length;
+    };
+
     const onSubmitHandler = async (e) => {
         e.preventDefault();
         const { email, password, confirmPassword } = register;
@@ -38,20 +49,27 @@ export const Register = () => {
         }
 
         // Email validation
-        const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
-        if (!emailPattern.test(email)) {
+        if (!EMAIL_PATERN.test(email)) {
             setError('Please enter a valid email address.');
             return;
         }
 
         // Check if password and confirm password match
         if (password !== confirmPassword) {
-            setError('Passwords do not match.');
+            setError('Passwords  do not match.');
+            return;
+        }
+
+        const passwordStrength = checkPasswordStrength(password);
+        if (passwordStrength < MAX_STRENGTH_PASSWORD) {
+            setError('Password should be at least 8 characters long\nand contain a mix of letters, numbers, and special characters.');
             return;
         }
 
         try {
-            await userService.register(register);
+            // Check if user already exists with the same email
+            const userExists = await userService.register(register);
+
             // Redirect to login page after successful registration
             navigate('/login');
         } catch (error) {
