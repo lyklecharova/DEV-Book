@@ -70,6 +70,7 @@
     color: #3fffb8;
     text-align: center;
     margin-left: 145px;
+    width: 30%;
     display: flex;
     flex-direction: column;
 }
