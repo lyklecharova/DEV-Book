@@ -67,16 +67,16 @@
 .register-link {
     text-decoration: underline;
     font-weight: bold;
-    color: #3fffb8;
+    color: #4caf50;
     text-align: center;
-    margin-left: 145px;
-    width: 30%;
-    display: flex;
-    flex-direction: column;
+    margin: 0 auto;
+    display: table;
+    font-weight: 600;
 }
 
 .register-link:hover {
-    background-color: #8aa4c5;
+    text-decoration: none;
+    opacity: 0.8;
 }
 
 .error {
