@@ -1,8 +1,9 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import style from './CreateBook.module.css';
 import * as BookService from '../../../service/BookService';
+import { URL_PATTERN } from '../../constants/constants';
+import style from './CreateBook.module.css';
 
 export const CreateBook = () => {
 
@@ -29,7 +30,7 @@ export const CreateBook = () => {
         e.preventDefault();
         if (book.image.trim() === '') {
             err.imageError = 'You should upload image!'
-        } else if (!/^https:\/\//i.test(book.image)) {
+        } else if (!URL_PATTERN.test(book.image)) {
             err.imageError = 'Image URL should start with "https://".';
         }
 
@@ -39,7 +40,7 @@ export const CreateBook = () => {
 
         if (book.url.trim() === '') {
             err.urlError = 'You should upload URL link!'
-        } else if (!/^https:\/\//i.test(book.url)) {
+        } else if (!URL_PATTERN.test(book.url)) {
             err.urlError = 'URL should start with "https://".';
         }
 
@@ -143,7 +144,7 @@ export const CreateBook = () => {
                         placeholder="Enter additional information...."
                         rows="4"
                         cols="50"
-                       
+
                     />
                 </div>
 

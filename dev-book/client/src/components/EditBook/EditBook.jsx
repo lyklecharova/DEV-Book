@@ -1,8 +1,10 @@
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
-import style from './EditBook.module.css';
+
 import * as BookService from '../../../service/BookService';
+import { URL_PATTERN } from '../../constants/constants';
+import style from './EditBook.module.css';
 
 export const EditBook = () => {
     const nav = useNavigate();
@@ -28,15 +30,17 @@ export const EditBook = () => {
         e.preventDefault();
         const err = {};
         if (book.image.trim() === '') {
-            err.imageError = 'You should upload image!';
+            err.imageError = 'You should upload image!'
+        } else if (!URL_PATTERN.test(book.image)) {
+            err.imageError = 'Image URL should start with "https://".';
         }
-
         if (book.title.trim() === '') {
             err.titleError = 'You should write title of book!';
         }
-
         if (book.url.trim() === '') {
-            err.urlError = 'You should upload URL link!';
+            err.urlError = 'You should upload URL link!'
+        } else if (!URL_PATTERN.test(book.url)) {
+            err.urlError = 'URL should start with "https://".';
         }
 
         if (book.additionalInfo.trim() === '') {
