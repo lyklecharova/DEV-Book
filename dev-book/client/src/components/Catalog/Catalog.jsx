@@ -5,7 +5,7 @@ import { CatalogItem } from './CatalogItem/CatalogItem';
 import style from './Catalog.module.css'
 
 export const Catalog = () => {
-    const [books, setBooks] = useState();
+    const [books, setBooks] = useState([]);
     useEffect(() => {
         BookService.getAllBooks()
             .then(res => {
@@ -24,6 +24,15 @@ export const Catalog = () => {
                     return <CatalogItem key={books._id} {...books} deleteHandler={deleteHandler} />
                 })
             }</>}
+
+
+            {books.length === 0 && (
+                <div>
+                    <h2 className={style['error']}>Sorry, but you can not find book yet &#128543; ! <br></br>Come back later. Thanks for your patience.</h2>
+                </div>
+
+            )}
+
         </div>
     );
 };

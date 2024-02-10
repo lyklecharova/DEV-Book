@@ -77,3 +77,14 @@
   background-color: #FFF;
   color: #09bb7a
 }
+
+.error {
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 40px;
+  color: #410c10;
+  text-align: center;
+}
