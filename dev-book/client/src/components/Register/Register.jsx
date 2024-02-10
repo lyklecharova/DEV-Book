@@ -1,5 +1,5 @@
 import { useContext, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Navigate, useNavigate } from 'react-router-dom';
 
 import { AuthContext } from '../../contexts/authContext';
 import { EMAIL_PATERN, MAX_LENGTH_PASSWORD, PASSWORD_PATERN } from '../../constants/constants';
@@ -11,7 +11,8 @@ export const Register = () => {
     const [error, setError] = useState(false);
     const navigate = useNavigate();
     if (isLog) {
-        navigate('/');
+        // navigate('/');
+        return <Navigate to="/" />
     }
     const [register, setRegister] = useState({
         email: '',
