@@ -1,5 +1,5 @@
 import { useState, useContext } from 'react';
-import { NavLink, useNavigate } from 'react-router-dom';
+import { NavLink, Navigate, useNavigate } from 'react-router-dom';
 
 import { EMAIL_PATERN } from '../../constants/constants';
 import { AuthContext } from '../../contexts/authContext';
@@ -13,7 +13,8 @@ export const Login = () => {
     const navigate = useNavigate();
 
     if (isLog) {
-        navigate('/');
+        //  navigate('/');
+        return <Navigate to="/" />
     }
 
     const [login, setLogin] = useState({
