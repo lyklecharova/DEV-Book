@@ -67,9 +67,10 @@ button:hover {
 }
 
 .error {
-  color: #912f36;
+  color: #861e25;
   text-align: center;
   position: sticky;
   font-size: 20px;
   margin: 5px;
+  font-weight: bold;
 }
