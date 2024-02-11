@@ -8,6 +8,7 @@ Project is Single Page Application (SPA) created for books using React for the F
 
 <h2>Project Screenshots:</h2>
 <p align="center"><img src="https://github.com/lyklecharova/DEV-Book/blob/main/dev-book/client/public/project-image/catalog-page.png" alt="catalog" width="960" height="540/"></p>
+<p align="center"><img src="https://github.com/lyklecharova/DEV-Book/blob/main/dev-book/client/public/project-image/catalog-page-with-dinamic-content.png" alt="catalog-with-content" width="960" height="540/"></p>
 <p align="center"><img src="https://github.com/lyklecharova/DEV-Book/blob/main/dev-book/client/public/project-image/login-page.png" alt="login" width="960" height="540/"></p>
 <p align="center"><img src="https://github.com/lyklecharova/DEV-Book/blob/main/dev-book/client/public/project-image/login-page-with-error.png" alt="login-error" width="960" height="540/"></p>
 <p align="center"><img src="https://github.com/lyklecharova/DEV-Book/blob/main/dev-book/client/public/project-image/register-page.png" alt="register" width="960" height="540/"></p>
