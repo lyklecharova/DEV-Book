@@ -1,6 +1,6 @@
 
 # DEV-Book
-React Project
+
 Project is Single Page Application (SPA) created for books using React for the Frontend (FE) and NodeJS, Express.JS, MongoDB for the Backend (BE).
 <h1 align="center" id="title">DEV-Book</h1>
 
