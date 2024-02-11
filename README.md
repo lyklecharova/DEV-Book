@@ -1,4 +1,3 @@
-
 # DEV-Book
 
 Project is Single Page Application (SPA) created for books using React for the Frontend (FE) and NodeJS, Express.JS, MongoDB for the Backend (BE).
@@ -15,6 +14,7 @@ Project is Single Page Application (SPA) created for books using React for the F
 <p align="center"><img src="https://github.com/lyklecharova/DEV-Book/blob/main/dev-book/client/public/project-image/register-page-with-error-password.png" alt="register-error-password" width="960" height="540/"></p>
 <p align="center"><img src="https://github.com/lyklecharova/DEV-Book/blob/main/dev-book/client/public/project-image/register-page-with-error-incorrect-password.png" alt="register-error-incorrect-password" width="960" height="540/"></p>
 <p align="center"><img src="https://github.com/lyklecharova/DEV-Book/blob/main/dev-book/client/public/project-image/register-page-with-error-email.png" alt="register-error-email" width="960" height="540/"></p>
+<p align="center"><img src="https://github.com/lyklecharova/DEV-Book/blob/main/dev-book/client/public/project-image/error-page.png" alt="page-error" width="960" height="540/"></p>
 
 
 <h2>💻 Built with</h2>
