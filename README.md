@@ -16,6 +16,17 @@ Project is Single Page Application (SPA) created for books using React for the F
 <p align="center"><img src="https://github.com/lyklecharova/DEV-Book/blob/main/dev-book/client/public/project-image/register-page-with-error-incorrect-password.png" alt="register-error-incorrect-password" width="960" height="540/"></p>
 <p align="center"><img src="https://github.com/lyklecharova/DEV-Book/blob/main/dev-book/client/public/project-image/register-page-with-error-email.png" alt="register-error-email" width="960" height="540/"></p>
 
+
+<h2>💻 Built with</h2>
+
+Technologies used in the project:
+<ul>
+<li>JavaScript, HTML & CSS
+<li>React JS</li>
+<li>Node.js, Express.js and MongoDB
+<li>Using Font Awesome for icon</li>
+</ul>
+
 # Run application:
 
       * Open terminal "client" and run:
