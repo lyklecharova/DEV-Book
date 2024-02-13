@@ -37,6 +37,7 @@
 
 .form-group {
     margin-bottom: 20px;
+    position: relative;
 }
 
 .form-label {
@@ -75,4 +76,18 @@
     font-size: 20px;
     margin: 4px;
     padding: 3px;
+}
+
+.password-toggle {
+    position: absolute;
+    top: 58%;
+    right: 3%;
+    transform: translateY(50% 50%);
+    cursor: pointer;
+   
+}
+
+.password-toggle:hover {
+    text-decoration: none;
+    opacity: 0.6;
 }
