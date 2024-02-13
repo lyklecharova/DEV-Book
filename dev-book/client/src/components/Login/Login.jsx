@@ -1,6 +1,9 @@
 import { useState, useContext } from 'react';
 import { NavLink, Navigate, useNavigate } from 'react-router-dom';
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
+
 import { EMAIL_PATERN } from '../../constants/constants';
 import { AuthContext } from '../../contexts/authContext';
 import * as userService from '../../../service/userService';
@@ -10,6 +13,7 @@ export const Login = () => {
     const { isLog, isAuthenticated } = useContext(AuthContext);
     const [error, setError] = useState(false);
     const [errorMessage, setErrorMessage] = useState(null);
+    const [changePassword, setChangePassword] = useState(true);
     const navigate = useNavigate();
 
     if (isLog) {
@@ -30,6 +34,9 @@ export const Login = () => {
         }));
     };
 
+    const togglePasswordVisibility = () => {
+        setChangePassword(!changePassword);
+    };
     const onSubmitHandler = async (e) => {
         e.preventDefault();
 
@@ -95,7 +102,7 @@ export const Login = () => {
                     </label>
                     <input
                         className={style['form-input']}
-                        type="password"
+                        type={changePassword ? "password" : "text"}
                         id="password"
                         onChange={onChangeHandler}
                         name="password"
@@ -104,6 +111,12 @@ export const Login = () => {
                         required={true}
                         autoComplete="password"
                     />
+                    <span
+                        className={style['password-toggle']}
+                        onClick={togglePasswordVisibility}
+                    >
+                        <FontAwesomeIcon icon={changePassword ? faEye : faEyeSlash} />
+                    </span>
                 </div>
                 {error && <p className={style['error']}>Invalid email or password</p>}
 
