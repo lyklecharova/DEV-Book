@@ -5,7 +5,7 @@ export const MAX_LENGTH_PASSWORD = 12;
                             // @: Matches the "@" symbol
                             // (abv\.bg|domain\.com): Matches either "abv.bg" or "domain.com", 
                                                         //representing the domain part of the email address
-export const EMAIL_PATERN = /^([^@\s]+)@(abv\.bg|domain\.com)$/
+export const EMAIL_PATERN = /^([^@\s]+)@(abv\.bg|domain\.com)$/;
                 // PASSWORD
                                 // At least one upper case English letter, (?=.*?[A-Z])
                                 // At least one lower case English letter, (?=.*?[a-z])
@@ -13,4 +13,4 @@ export const EMAIL_PATERN = /^([^@\s]+)@(abv\.bg|domain\.com)$/
                                 // At least one special character, (?=.*?[#?!@$%^&*-])
                                 // Minimum eight in length .{8,} (with the anchors)
 export const PASSWORD_PATERN = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/;
-export const URL_PATTERN =/^https:\/\//i;
+export const URL_PATTERN =/^https?:\/\//i;
