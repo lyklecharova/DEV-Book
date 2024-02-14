@@ -26,7 +26,6 @@ export const BookDetails = () => {
                     </div>
                 </div>
                 <div className={style['details-description']}>
-                    <h2 className={style['desc-info']}>Description:</h2>
                     <p>{book.additionalInfo}</p>
                 </div>
             </div>}

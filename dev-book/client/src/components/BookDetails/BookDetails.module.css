@@ -43,6 +43,13 @@
   font-size: 1rem;
 }
 
+.details-container .details-description p {
+  margin: 0;
+  padding: 0;
+  line-height: 25px;
+  font-size: 1.1em;
+}
+
 .details-description {
   padding: 20px;
   letter-spacing: 1.5;
