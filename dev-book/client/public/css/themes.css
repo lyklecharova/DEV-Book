@@ -1,0 +1,30 @@
+:root {
+    --background-color: #ffffff;
+    /* Light theme background color */
+    --text-color: #000000;
+    /* Light theme text color */
+}
+
+[data-theme='Light'] {
+    --background-color: #eeeff3;
+    /* Dark theme background color */
+    --text-color: #000000;
+    /* Dark theme text color */
+
+    --header-color: #2db583;
+    /* Light theme header color */
+    --footer-color: #2db583;
+    /* Light theme footer color */
+}
+
+[data-theme='Dark'] {
+    --background-color: #000000;
+    /* Dark theme background color */
+    --text-color: #ffffff;
+    /* Dark theme text color */
+
+    --header-color: #3c3b3b;
+    /* Dark theme header color */
+    --footer-color: #3c3b3b;
+    /* Dark theme footer color */
+}
