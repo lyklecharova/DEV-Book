@@ -1,3 +1,4 @@
+@import url('../../../public/css/themes');
 .home-page {
     background-image: url("/img/kobu-agency-ipARHaxETRk-unsplash.jpg");
     background-size: cover;
@@ -9,7 +10,8 @@
     justify-content: center;
     align-items: center;
     text-align: center;
-    color: white;
+    /* color: white; */
+    color: var(--text-color);
 }
 
 .home-title {
@@ -20,8 +22,10 @@
     font-size: 22px;
     padding: 10px 35px;
     background-color: rgb(10, 145, 82);
-    color: #d9dfeb;
+    /* background-color: var(--background-color); */
+    /* color: #d9dfeb; */
+    color: var(--text-color);
     letter-spacing: 1.5px;
     margin-top: 20px;
     text-decoration: none;
-}    
+}
