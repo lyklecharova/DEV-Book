@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 
 import * as BookService from '../../../service/BookService';
 import { CatalogItem } from './CatalogItem/CatalogItem';
-import style from './Catalog.module.css'
+import style from './Catalog.module.css';
 
 export const Catalog = () => {
     const [books, setBooks] = useState([]);
