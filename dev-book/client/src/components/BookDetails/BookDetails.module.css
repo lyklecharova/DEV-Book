@@ -1,9 +1,12 @@
+@import url('../../../public/css/themes');
+
 .details-container {
   display: flex;
   justify-content: space-evenly;
   align-items: center;
   width: 100%;
-  background-color: #eeeff3;
+  /* background-color: #eeeff3; */
+  background-color: var(--background-color);
   min-height: 100vh;
 }
 
@@ -23,7 +26,6 @@
   background-size: contain;
 }
 
-
 .details-info {
   margin-bottom: 20px;
   width: 750px;
@@ -39,7 +41,8 @@
 }
 
 .details-url {
-  color: #007bff;
+  /* color: #007bff; */
+  color: var(--text-color);
   font-size: 1rem;
 }
 
@@ -54,7 +57,8 @@
   padding: 20px;
   letter-spacing: 1.5;
   margin: 10px 15px 20px;
-  color: #333;
+  /* color: #333; */
+  color: var(--text-color);
   font-size: 15px;
   overflow-wrap: anywhere;
   background-color: #a3d8d770;
