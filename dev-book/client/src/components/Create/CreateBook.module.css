@@ -1,3 +1,5 @@
+@import url('../../../public/css/themes');
+
 .main {
   display: flex;
   flex-direction: column;
@@ -25,7 +27,8 @@
   max-width: 400px;
   width: 100%;
   padding: 20px;
-  background-color: #ffffff7c;
+  /* background-color: #ffffff7c; */
+  background-color: var(--background-color);
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
   backdrop-filter: blur(10px);
@@ -40,7 +43,8 @@
 .create-textarea {
   font-size: 18px;
   margin-bottom: 8px;
-  color: #333;
+  /* color: #333; */
+  color: var(--text-color);
 }
 
 .create-input {
@@ -49,12 +53,13 @@
   box-sizing: border-box;
   border: 1px solid #ccc;
   border-radius: 4px;
-  
 }
 
 button {
-  background-color: #4caf50;
-  color: #fff;
+  /* background-color: #4caf50; */
+  background-color: var(--background-color);
+  /* color: #fff; */
+  color: var(--text-color);
   padding: 10px 20px;
   border: none;
   border-radius: 4px;
@@ -64,11 +69,13 @@ button {
 }
 
 button:hover {
-  background-color: #45a049;
+  /* background-color: #45a049; */
+  background-color: var(--background-color);
 }
 
 .error {
-  color: #861e25;
+  /* color: #861e25; */
+  color: var(--text-color);
   text-align: center;
   position: sticky;
   font-size: 20px;
