@@ -1,8 +1,12 @@
+@import url('../../../public/css/themes');
+
 footer>p {
-    color: white;
+    /* color: white; */
+    color: var(--text-color);
     font-size: 20px;
     letter-spacing: 1.5px;
-    background-color: #2db583;
+    /* background-color: #2db583; */
+    background-color: var(--footer-color);
 
     display: flex;
     flex-direction: row;
