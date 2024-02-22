@@ -1,3 +1,5 @@
+@import url('../../../public/css/themes');
+
 .error {
     position: relative;
     height: 95vh;
@@ -8,6 +10,7 @@
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
+    background-color: var(--background-color);
 
     top: 70px;
     left: 400px;
