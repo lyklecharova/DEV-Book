@@ -1,3 +1,4 @@
+import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useContext, useState } from "react";
 
@@ -5,7 +6,7 @@ import { AuthContext } from "../../../contexts/authContext";
 import * as BookService from '../../../../service/BookService';
 import style from './CatalogItem.module.css';
 
-export const CatalogItem = ({
+export const CatalogItem = React.memo(({ // using for optimization
     _id,
     title,
     image,
@@ -60,4 +61,5 @@ export const CatalogItem = ({
 
         </div>
     );
-};
+});
+CatalogItem.displayName = 'CatalogItem';
