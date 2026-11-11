@@ -6,14 +6,31 @@ const Book = require('../models/Books');
 
 // Create book - Logged
 router.post('/add', isLogUser, async (req, res) => {
-    const bookDetails = req.body;
     try {
-        console.log(bookDetails);
-        await Book.create({ ...bookDetails, ownerId: req.userId });
+        const { title, image, url, additionalInfo } = req.body;
+
+        if (typeof title !== 'string' || !title.trim()) {
+            return res.status(400).json({
+                error: 'Book title is required',
+            });
+        }
+
+        const newBook = await Book.create({
+            title: title.trim(),
+            image,
+            url,
+            additionalInfo,
+            ownerId: req.userId,
+        });
+
+        res.status(201).json(newBook);
     } catch (error) {
-        console.log(error);
+        console.error(error);
+
+        res.status(400).json({
+            error: 'Failed to create book',
+        });
     }
-    res.status(200).send('Send');
 });
 
 router.get('/', async (req, res) => {
@@ -34,7 +51,6 @@ router.get('/:id', async (req, res) => {
     }
 });
 
-// Edit book - Logged and owner
 // Edit book - Logged and owner
 router.put('/:id', isLogUser, async (req, res) => {
     try {
@@ -82,20 +98,33 @@ router.put('/:id', isLogUser, async (req, res) => {
 });
 
 // Delete book - Logged and owner
-
 router.delete('/:id', isLogUser, async (req, res) => {
     try {
         const bookId = req.params.id;
         const bookDetails = await Book.findById(bookId);
-        if (bookDetails.ownerId != req.userId) {
-            throw new Error('Unauthorized');
+
+        if (!bookDetails) {
+            return res.status(404).json({
+                error: 'Book not found',
+            });
+        }
+
+        if (bookDetails.ownerId.toString() !== req.userId.toString()) {
+            return res.status(403).json({
+                error: 'You are not allowed to delete this book',
+            });
         }
 
         await Book.findByIdAndDelete(bookId);
-        res.json({ message: 'Delete succesfully' });
+
+        res.json({
+            message: 'Book deleted successfully',
+        });
     } catch (error) {
-        // console.log(error);
-        res.status(400).json(error);
+        console.error(error);
+        res.status(400).json({
+            error: 'Failed to delete book',
+        });
     }
 });
 
