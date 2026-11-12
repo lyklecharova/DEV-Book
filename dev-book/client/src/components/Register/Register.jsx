@@ -5,7 +5,11 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 
 import { AuthContext } from '../../contexts/authContext';
-import { EMAIL_PATERN, MAX_LENGTH_PASSWORD, PASSWORD_PATERN } from '../../constants/constants';
+import {
+    EMAIL_PATERN,
+    MAX_LENGTH_PASSWORD,
+    PASSWORD_PATERN,
+} from '../../constants/constants';
 import * as userService from '../../../service/userService';
 import style from './Register.module.css';
 
@@ -17,15 +21,15 @@ export const Register = () => {
     // Separate state for confirm password visibility
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
     const navigate = useNavigate();
-    if (isLog) {
-        // navigate('/');
-        return <Navigate to="/" />
-    }
     const [register, setRegister] = useState({
         email: '',
         password: '',
         confirmPassword: '',
     });
+    if (isLog) {
+        // navigate('/');
+        return <Navigate to="/" replace />;
+    }
 
     const onChange = (e) => {
         const { name, value } = e.target;
@@ -39,7 +43,9 @@ export const Register = () => {
         if (type === 'password') {
             setShowPassword((prevShowPassword) => !prevShowPassword);
         } else if (type === 'confirmPassword') {
-            setShowConfirmPassword((prevShowConfirmPassword) => !prevShowConfirmPassword);
+            setShowConfirmPassword(
+                (prevShowConfirmPassword) => !prevShowConfirmPassword,
+            );
         }
     };
 
@@ -78,7 +84,9 @@ export const Register = () => {
 
         const passwordStrength = checkPasswordStrength(password);
         if (passwordStrength < MAX_LENGTH_PASSWORD) {
-            setError('Password should be at least 8 characters long\nand contain a mix of letters, numbers, and special characters.');
+            setError(
+                'Password should be at least 8 characters long\nand contain a mix of letters, numbers, and special characters.',
+            );
             return;
         }
 
@@ -100,7 +108,9 @@ export const Register = () => {
             <form onSubmit={onSubmitHandler} className={style['register-form']}>
                 <h1 className={style['register-heading']}>Register</h1>
                 <div className={style['form-group']}>
-                    <label htmlFor="email" className={style['form-label']}>Email:</label>
+                    <label htmlFor="email" className={style['form-label']}>
+                        Email:
+                    </label>
                     <input
                         type="email"
                         id="email"
@@ -114,9 +124,11 @@ export const Register = () => {
                 </div>
 
                 <div className={style['form-group']}>
-                    <label htmlFor="password" className={style['form-label']}>Password:</label>
+                    <label htmlFor="password" className={style['form-label']}>
+                        Password:
+                    </label>
                     <input
-                        type={showPassword ? "text" : "password"}
+                        type={showPassword ? 'text' : 'password'}
                         id="password"
                         name="password"
                         value={register.password}
@@ -129,13 +141,20 @@ export const Register = () => {
                         className={style['password-toggle']}
                         onClick={() => togglePasswordVisibility('password')}
                     >
-                        <FontAwesomeIcon icon={showPassword ? faEye : faEyeSlash} />
+                        <FontAwesomeIcon
+                            icon={showPassword ? faEye : faEyeSlash}
+                        />
                     </span>
                 </div>
                 <div className={style['form-group']}>
-                    <label htmlFor="confirmPassword" className={style['form-label']}>Confirm Password:</label>
+                    <label
+                        htmlFor="confirmPassword"
+                        className={style['form-label']}
+                    >
+                        Confirm Password:
+                    </label>
                     <input
-                        type={showConfirmPassword ? "text" : "password"}
+                        type={showConfirmPassword ? 'text' : 'password'}
                         id="confirmPassword"
                         name="confirmPassword"
                         value={register.confirmPassword}
@@ -146,15 +165,22 @@ export const Register = () => {
                     />
                     <span
                         className={style['password-toggle']}
-                        onClick={() => togglePasswordVisibility('confirmPassword')}
+                        onClick={() =>
+                            togglePasswordVisibility('confirmPassword')
+                        }
                     >
-                        <FontAwesomeIcon icon={showConfirmPassword ? faEye : faEyeSlash} />
+                        <FontAwesomeIcon
+                            icon={showConfirmPassword ? faEye : faEyeSlash}
+                        />
                     </span>
                 </div>
                 {error && <p className={style['error']}>{error}</p>}
-                <input type="submit" value="Register" className={style['form-button']} />
+                <input
+                    type="submit"
+                    value="Register"
+                    className={style['form-button']}
+                />
             </form>
         </div>
     );
 };
-

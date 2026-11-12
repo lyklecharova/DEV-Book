@@ -1,30 +1,47 @@
-const express = require("express");
+const express = require('express');
 const router = express.Router();
-const { isLogUser } = require("../middleware/guards");
+const { isLogUser } = require('../middleware/guards');
 
 const Book = require('../models/Books');
 
 // Create book - Logged
-router.post("/add", isLogUser, async (req, res) => {
-    const bookDetails = req.body;
+router.post('/add', isLogUser, async (req, res) => {
     try {
-        console.log(bookDetails);
-        await Book.create({ ...bookDetails, ownerId: req.userId });
+        const { title, image, url, additionalInfo } = req.body;
+
+        if (typeof title !== 'string' || !title.trim()) {
+            return res.status(400).json({
+                error: 'Book title is required',
+            });
+        }
+
+        const newBook = await Book.create({
+            title: title.trim(),
+            image,
+            url,
+            additionalInfo,
+            ownerId: req.userId,
+        });
+
+        res.status(201).json(newBook);
     } catch (error) {
-        console.log(error);
+        console.error(error);
+
+        res.status(400).json({
+            error: 'Failed to create book',
+        });
     }
-    res.status(200).send("Send");
 });
 
-router.get("/", async (req, res) => {
+router.get('/', async (req, res) => {
     const allBooks = await Book.find();
     // console.log(allBooks);
     res.json(allBooks);
 });
 
-router.get("/:id", async (req, res) => {
+router.get('/:id', async (req, res) => {
     try {
-        const bookId = req.params.id
+        const bookId = req.params.id;
         const oneBook = await Book.findById(bookId);
         // console.log(oneBook);
         res.json(oneBook);
@@ -35,40 +52,79 @@ router.get("/:id", async (req, res) => {
 });
 
 // Edit book - Logged and owner
-router.put("/:id", isLogUser, async (req, res) => {
+router.put('/:id', isLogUser, async (req, res) => {
     try {
         const bookId = req.params.id;
         const bookDetails = await Book.findById(bookId);
-        if (bookDetails.ownerId != req.userId) {
-            throw new Error('Unauthorized');
+
+        if (!bookDetails) {
+            return res.status(404).json({
+                error: 'Book not found',
+            });
         }
-        const updateInfo = req.body;
-        // new:true - returns the modified value
-        const editedBook = await Book.findByIdAndUpdate(bookId, updateInfo, {
-            new: true
-        })
+
+        if (bookDetails.ownerId.toString() !== req.userId.toString()) {
+            return res.status(403).json({
+                error: 'You are not allowed to edit this book',
+            });
+        }
+
+        const { title, image, url, additionalInfo } = req.body;
+
+        const updateInfo = {};
+
+        if (title !== undefined) updateInfo.title = title;
+        if (image !== undefined) updateInfo.image = image;
+        if (url !== undefined) updateInfo.url = url;
+        if (additionalInfo !== undefined)
+            updateInfo.additionalInfo = additionalInfo;
+
+        const editedBook = await Book.findByIdAndUpdate(
+            bookId,
+            { $set: updateInfo },
+            {
+                new: true,
+                runValidators: true,
+            },
+        );
+
         res.json(editedBook);
     } catch (error) {
-        console.log(error);
-        res.status(400).json(error);
+        console.error(error);
+        res.status(400).json({
+            error: 'Failed to update book',
+        });
     }
 });
 
 // Delete book - Logged and owner
-
-router.delete("/:id", isLogUser, async (req, res) => {
+router.delete('/:id', isLogUser, async (req, res) => {
     try {
         const bookId = req.params.id;
         const bookDetails = await Book.findById(bookId);
-        if (bookDetails.ownerId != req.userId) {
-            throw new Error('Unauthorized');
+
+        if (!bookDetails) {
+            return res.status(404).json({
+                error: 'Book not found',
+            });
+        }
+
+        if (bookDetails.ownerId.toString() !== req.userId.toString()) {
+            return res.status(403).json({
+                error: 'You are not allowed to delete this book',
+            });
         }
 
         await Book.findByIdAndDelete(bookId);
-        res.json({ message: "Delete succesfully" });
+
+        res.json({
+            message: 'Book deleted successfully',
+        });
     } catch (error) {
-        // console.log(error);
-        res.status(400).json(error);
+        console.error(error);
+        res.status(400).json({
+            error: 'Failed to delete book',
+        });
     }
 });
 

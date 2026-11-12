@@ -3,20 +3,22 @@ function isLogUser(req, res, next) {
         next();
     } else {
         return res.status(401).json({
-            error: 'Access denied'
-        })
+            error: 'Access denied',
+        });
     }
-};
+}
 
 function isGuest(req, res, next) {
-    if (req.user) {
-        return res.status(401).json({ message: 'Unauthorized', statusCode: 401 });
-    } else {
-        next();
+    if (req.userId) {
+        return res.status(403).json({
+            error: 'Already authenticated',
+        });
     }
-};
+
+    next();
+}
 
 module.exports = {
     isLogUser,
     isGuest,
-}
+};
