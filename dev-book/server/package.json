@@ -1,5 +1,6 @@
 {
   "scripts": {
+    "start": "node server.js",
     "csr": "nodemon server.js"
   },
   "dependencies": {
