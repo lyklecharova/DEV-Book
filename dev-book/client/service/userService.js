@@ -1,13 +1,14 @@
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3030';
 export async function register(user) {
-    const url = `http://localhost:3030/user/register`;
+    const url = `${API_URL}/user/register`;
 
     try {
         const response = await fetch(url, {
-            method: "POST",
+            method: 'POST',
             headers: {
-                "Content-Type": "application/json",
+                'Content-Type': 'application/json',
             },
-            body: JSON.stringify(user)
+            body: JSON.stringify(user),
         });
         if (!response.ok) {
             throw new Error('Invalid registration');
@@ -17,18 +18,18 @@ export async function register(user) {
     } catch (error) {
         throw new Error('Invalid registration');
     }
-};
+}
 
 export async function login(user) {
-    const url = `http://localhost:3030/user/login`;
+    const url = `${API_URL}/user/login`;
 
     try {
         const response = await fetch(url, {
-            method: "POST",
+            method: 'POST',
             headers: {
-                "Content-Type": "application/json",
+                'Content-Type': 'application/json',
             },
-            body: JSON.stringify(user)
+            body: JSON.stringify(user),
         });
         if (!response.ok) {
             throw new Error('Invalid login');
@@ -38,4 +39,4 @@ export async function login(user) {
     } catch (error) {
         throw new Error('Invalid login');
     }
-};
+}

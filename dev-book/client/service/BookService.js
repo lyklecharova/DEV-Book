@@ -1,5 +1,7 @@
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3030';
+
 export async function addBook(book) {
-    const URL = 'http://localhost:3030/book/add';
+    const URL = `${API_URL}/book/add`;
 
     const response = await fetch(URL, {
         method: 'POST',
@@ -16,7 +18,7 @@ export async function addBook(book) {
 }
 
 export async function getAllBooks() {
-    const URL = 'http://localhost:3030/book';
+    const URL = `${API_URL}/book`;
     const response = await fetch(URL);
     if (!response.ok) {
         throw new Error(`Failed to load books. Status: ${response.status}`);
@@ -27,7 +29,7 @@ export async function getAllBooks() {
 }
 
 export async function getOneBook(id) {
-    const URL = `http://localhost:3030/book/${id}`;
+    const URL = `${API_URL}/book/${id}`;
     const response = await fetch(URL);
     if (!response.ok) {
         throw new Error(`Failed to load book. Status: ${response.status}`);
@@ -37,7 +39,7 @@ export async function getOneBook(id) {
 }
 
 export async function editBook(book) {
-    const URL = `http://localhost:3030/book/${book._id}`;
+    const URL = `${API_URL}/book/${book._id}`;
     const response = await fetch(URL, {
         method: 'PUT',
         headers: {
@@ -56,7 +58,7 @@ export async function editBook(book) {
 }
 
 export async function deleteBook(id) {
-    const URL = `http://localhost:3030/book/${id}`;
+    const URL = `${API_URL}/book/${id}`;
 
     const response = await fetch(URL, {
         method: 'DELETE',
