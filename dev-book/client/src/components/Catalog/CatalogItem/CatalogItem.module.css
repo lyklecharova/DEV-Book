@@ -82,3 +82,24 @@
   cursor: pointer;
   font-size: 14px;
 }
+
+@media (max-width: 600px) {
+  .items {
+    width: 100%;
+    max-width: 250px;
+    margin: 0 auto;
+    padding: 0;
+  }
+
+  .card {
+    width: 200px;
+    height: 280px;
+    margin: 0;
+  }
+
+  .card .items-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
