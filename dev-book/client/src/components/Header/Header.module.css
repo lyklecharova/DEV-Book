@@ -51,3 +51,23 @@ a {
     display: flex;
     align-items: center;
 }
+
+/* RD */
+@media (max-width: 600px) {
+    .nav-bar {
+        flex-direction: column;
+        padding: 15px 10px;
+        gap: 15px;
+    }
+
+    .ul-list {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 15px;
+        padding: 0;
+    }
+
+    .li-element > a {
+        font-size: 14px;
+    }
+}

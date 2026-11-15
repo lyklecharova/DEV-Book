@@ -71,3 +71,17 @@
   color: var(--text-color);
   text-align: center;
 }
+
+/* RD */
+@media (max-width: 600px) {
+  .container {
+    grid-template-columns: minmax(0, 1fr);
+    justify-items: center;
+    padding: 15px;
+  }
+
+  .items {
+    width: 100%;
+    max-width: 300px;
+  }
+}
