@@ -60,9 +60,7 @@ export const CatalogItem = React.memo(
                             <div>
                                 {/* Show shorter content and extended content on click */}
                                 <p className={style['items-description']}>
-                                    {expanded
-                                        ? additionalInfo
-                                        : `${additionalInfo.slice(0, 50)}...`}
+                                    {`${additionalInfo.slice(0, 150)}${additionalInfo.length > 150 ? '...' : ''}`}
                                 </p>
                                 {/* Button to open another page */}
                                 <button onClick={() => nav(`/books/${_id}`)}>

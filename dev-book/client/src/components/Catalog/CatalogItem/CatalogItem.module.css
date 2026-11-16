@@ -83,6 +83,7 @@
   font-size: 14px;
 }
 
+/* Mobile responsive styles */
 @media (max-width: 600px) {
   .items {
     width: 100%;
@@ -97,9 +98,37 @@
     margin: 0;
   }
 
+  .card:hover {
+    transform: none;
+  }
+
   .card .items-image {
     width: 100%;
     height: 100%;
     object-fit: cover;
+  }
+
+  /* Prevent the hover effect from hiding the book details */
+  .card:hover .card-details {
+    transform: translateY(100%);
+  }
+
+  /* Expand the card to display the full description */
+  .card:has(.expanded) {
+    height: auto;
+    min-height: 280px;
+    overflow: visible;
+  }
+
+  .card:has(.expanded) .items-image {
+    display: none;
+  }
+
+  .card:has(.expanded) .card-details {
+    position: relative;
+    bottom: auto;
+    width: 100%;
+    box-sizing: border-box;
+    transform: none;
   }
 }

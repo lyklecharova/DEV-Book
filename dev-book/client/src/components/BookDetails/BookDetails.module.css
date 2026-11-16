@@ -70,3 +70,57 @@
   column-span: all;
   display: block;
 }
+
+
+/* Responsive design */
+@media (max-width: 600px) {
+  .details-container {
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    width: 100%;
+    min-height: 100vh;
+    padding: 20px 15px;
+    box-sizing: border-box;
+    gap: 20px;
+  }
+
+  .details-content {
+    flex-direction: column;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    gap: 15px;
+  }
+
+  .details-image {
+    width: 200px;
+    height: 280px;
+    max-width: 100%;
+    object-fit: contain;
+  }
+
+  .details-info {
+    width: 100%;
+    margin: 0;
+    overflow-wrap: anywhere;
+  }
+
+  .details-title {
+    font-size: 1.3rem;
+  }
+
+  .details-url {
+    font-size: 0.9rem;
+    overflow-wrap: anywhere;
+  }
+
+  .details-description {
+    width: 100%;
+    margin: 0;
+    padding: 15px;
+    box-sizing: border-box;
+    columns: 1;
+    letter-spacing: normal;
+  }
+}
