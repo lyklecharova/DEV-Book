@@ -4,22 +4,19 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 90vh;
-}
+    min-height: 90vh;
+    padding: 20px;
+    box-sizing: border-box;
 
-.login-container:before {
-    content: "";
-    position: absolute;
-    top: 0px;
-    left: 0px;
-    width: 100%;
-    height: 100vh;
+    /* Background image */
     background-image: url("/img/vladimir-mokry-G-4wX5tZNuE-unsplash.jpg");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    z-index: -2;
+
 }
+
+
 
 .login-form {
     /* background-color: #fff; */
