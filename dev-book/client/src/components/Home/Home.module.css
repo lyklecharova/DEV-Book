@@ -40,7 +40,8 @@
     .home-page {
         min-height: 100svh;
         background-size: cover;
-        background-position: center;
+        /* Keep the books visible on Android and iOS screens */
+        background-position: 35% center;
     }
 
     .home-title {
