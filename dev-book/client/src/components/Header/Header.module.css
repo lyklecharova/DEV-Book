@@ -14,7 +14,7 @@
     align-items: center;
     /* background-color: #2db583; */
     /* background-color: var(--background-color); */
-   background-color:  var(--header-color);
+    background-color: var(--header-color);
     z-index: 1;
     backdrop-filter: blur(30px);
 }
@@ -52,22 +52,45 @@ a {
     align-items: center;
 }
 
-/* RD */
+/* Responsive header for Android and iOS devices */
 @media (max-width: 600px) {
     .nav-bar {
         flex-direction: column;
-        padding: 15px 10px;
-        gap: 15px;
+        justify-content: center;
+        align-items: center;
+        box-sizing: border-box;
+        padding: 12px 10px;
+        gap: 12px;
     }
 
+    /* Center the DEV-BOOK logo */
+    .nav-bar>a {
+        font-size: 20px;
+    }
+
+    /* Arrange navigation links on mobile screens */
     .ul-list {
+        display: flex;
         flex-wrap: wrap;
         justify-content: center;
-        gap: 15px;
+        align-items: center;
+        gap: 10px 16px;
+        width: 100%;
+        margin: 0;
         padding: 0;
+        box-sizing: border-box;
     }
 
-    .li-element > a {
-        font-size: 14px;
+    .li-element>a {
+        font-size: 12px;
+        letter-spacing: 0.5px;
+        white-space: nowrap;
+    }
+
+    /* Place the theme toggle on a separate row */
+    .ul-list>li:last-child {
+        flex-basis: 100%;
+        display: flex;
+        justify-content: center;
     }
 }
