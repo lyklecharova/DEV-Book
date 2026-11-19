@@ -1,16 +1,24 @@
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3030';
 
+function authHeader() {
+    return {
+        'X-Authorization': JSON.parse(localStorage.getItem('UserInfo'))
+            ?.token,
+    };
+}
+
 export async function addBook(book) {
     const URL = `${API_URL}/book/add`;
+    const form = new FormData();
+    form.append('title', book.title);
+    form.append('url', book.url);
+    form.append('additionalInfo', book.additionalInfo);
+    form.append('image', book.image);
 
     const response = await fetch(URL, {
         method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'X-Authorization': JSON.parse(localStorage.getItem('UserInfo'))
-                ?.token,
-        },
-        body: JSON.stringify(book),
+        headers: authHeader(),
+        body: form,
     });
     if (!response.ok) {
         throw new Error(`Failed to create book. Status: ${response.status}`);
@@ -38,16 +46,20 @@ export async function getOneBook(id) {
     return data;
 }
 
-export async function editBook(book) {
-    const URL = `${API_URL}/book/${book._id}`;
+export async function editBook(bookId, fields) {
+    const URL = `${API_URL}/book/${bookId}`;
+    const form = new FormData();
+    form.append('title', fields.title);
+    form.append('url', fields.url);
+    form.append('additionalInfo', fields.additionalInfo);
+    if (fields.image) {
+        form.append('image', fields.image);
+    }
+
     const response = await fetch(URL, {
         method: 'PUT',
-        headers: {
-            'Content-Type': 'application/json',
-            'X-Authorization': JSON.parse(localStorage.getItem('UserInfo'))
-                ?.token,
-        },
-        body: JSON.stringify(book),
+        headers: authHeader(),
+        body: form,
     });
     if (!response.ok) {
         throw new Error(`Failed to update book. Status: ${response.status}`);
@@ -62,11 +74,7 @@ export async function deleteBook(id) {
 
     const response = await fetch(URL, {
         method: 'DELETE',
-        headers: {
-            'Content-Type': 'application/json',
-            'X-Authorization': JSON.parse(localStorage.getItem('UserInfo'))
-                ?.token,
-        },
+        headers: authHeader(),
     });
     if (!response.ok) {
         throw new Error(`Failed to delete book. Status: ${response.status}`);

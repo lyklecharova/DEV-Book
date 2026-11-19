@@ -10,16 +10,20 @@ export const CreateBook = () => {
     const nav = useNavigate();
     const [book, setBook] = useState({
         title: '',
-        image: '',
         url: '',
         additionalInfo: ''
     });
+    const [imageFile, setImageFile] = useState(null);
 
     const [bookError, setBookError] = useState({});
     const err = {};
 
     const handleInputChange = (e) => {
-        const { name, value } = e.target;
+        const { name, value, files } = e.target;
+        if (name === 'image') {
+            setImageFile(files?.[0] ?? null);
+            return;
+        }
         setBook((book) => ({
             ...book,
             [name]: value,
@@ -28,10 +32,8 @@ export const CreateBook = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        if (book.image.trim() === '') {
+        if (!imageFile) {
             err.imageError = 'You should upload image!'
-        } else if (!URL_PATTERN.test(book.image)) {
-            err.imageError = 'Image URL should start with "https://".';
         }
 
         if (book.title.trim() === '') {
@@ -50,9 +52,13 @@ export const CreateBook = () => {
         setBookError(err);
 
         if (Object.keys(err).length === 0) {
-            const book = Object.fromEntries(new FormData(e.currentTarget));
             try {
-                await BookService.addBook(book);
+                await BookService.addBook({
+                    title: book.title,
+                    url: book.url,
+                    additionalInfo: book.additionalInfo,
+                    image: imageFile,
+                });
                 nav('/catalog');
             } catch (err) {
                 console.log(`Please try again ${err}`);
@@ -95,15 +101,16 @@ export const CreateBook = () => {
                         Image
                     </label>
                     <input
-                        type="text"
+                        type="file"
                         id="image"
                         name="image"
-                        value={book.image}
+                        accept="image/png,image/jpeg,image/webp"
                         onChange={handleInputChange}
                         className={style['create-input']}
-                        placeholder="Upload image..."
-
                     />
+                    {imageFile && (
+                        <p className={style['file-name']}>Attached: {imageFile.name}</p>
+                    )}
                 </div>
 
                 {bookError.imageError && (

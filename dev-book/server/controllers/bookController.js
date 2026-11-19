@@ -1,19 +1,56 @@
 const express = require('express');
+const multer = require('multer');
 const router = express.Router();
 const { isLogUser } = require('../middleware/guards');
 
 const Book = require('../models/Books');
+const { uploadBookImage, deleteBookImage, ALLOWED_TYPES, MAX_BYTES } = require('../services/storage');
+
+const upload = multer({
+    storage: multer.memoryStorage(),
+    limits: { fileSize: MAX_BYTES },
+    fileFilter: (req, file, cb) => {
+        if (ALLOWED_TYPES.has(file.mimetype)) {
+            cb(null, true);
+        } else {
+            cb(new Error('Image must be a JPEG, PNG, or WebP under 2 MB'));
+        }
+    },
+});
+
+function handleUpload(req, res, next) {
+    upload.single('image')(req, res, (err) => {
+        if (!err) {
+            next();
+            return;
+        }
+
+        const message = err.code === 'LIMIT_FILE_SIZE'
+            ? 'Image must be a JPEG, PNG, or WebP under 2 MB'
+            : err.message;
+
+        res.status(400).json({ error: message });
+    });
+}
 
 // Create book - Logged
-router.post('/add', isLogUser, async (req, res) => {
+router.post('/add', isLogUser, handleUpload, async (req, res) => {
     try {
-        const { title, image, url, additionalInfo } = req.body;
+        const { title, url, additionalInfo } = req.body;
 
         if (typeof title !== 'string' || !title.trim()) {
             return res.status(400).json({
                 error: 'Book title is required',
             });
         }
+
+        if (!req.file) {
+            return res.status(400).json({
+                error: 'Image file is required',
+            });
+        }
+
+        const image = await uploadBookImage(req.file);
 
         const newBook = await Book.create({
             title: title.trim(),
@@ -52,7 +89,7 @@ router.get('/:id', async (req, res) => {
 });
 
 // Edit book - Logged and owner
-router.put('/:id', isLogUser, async (req, res) => {
+router.put('/:id', isLogUser, handleUpload, async (req, res) => {
     try {
         const bookId = req.params.id;
         const bookDetails = await Book.findById(bookId);
@@ -69,15 +106,17 @@ router.put('/:id', isLogUser, async (req, res) => {
             });
         }
 
-        const { title, image, url, additionalInfo } = req.body;
+        const { title, url, additionalInfo } = req.body;
 
         const updateInfo = {};
 
         if (title !== undefined) updateInfo.title = title;
-        if (image !== undefined) updateInfo.image = image;
         if (url !== undefined) updateInfo.url = url;
         if (additionalInfo !== undefined)
             updateInfo.additionalInfo = additionalInfo;
+        if (req.file) {
+            updateInfo.image = await uploadBookImage(req.file);
+        }
 
         const editedBook = await Book.findByIdAndUpdate(
             bookId,
@@ -87,6 +126,10 @@ router.put('/:id', isLogUser, async (req, res) => {
                 runValidators: true,
             },
         );
+
+        if (req.file) {
+            await deleteBookImage(bookDetails.image);
+        }
 
         res.json(editedBook);
     } catch (error) {
@@ -116,6 +159,7 @@ router.delete('/:id', isLogUser, async (req, res) => {
         }
 
         await Book.findByIdAndDelete(bookId);
+        await deleteBookImage(bookDetails.image);
 
         res.json({
             message: 'Book deleted successfully',
