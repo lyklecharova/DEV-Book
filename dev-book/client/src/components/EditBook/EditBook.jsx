@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
-
 import * as BookService from '../../../service/BookService';
 import { URL_PATTERN } from '../../constants/constants';
 import style from './EditBook.module.css';
@@ -13,7 +12,7 @@ export const EditBook = () => {
         title: '',
         image: '',
         url: '',
-        additionalInfo: ''
+        additionalInfo: '',
     });
     const [imageFile, setImageFile] = useState(null);
 
@@ -21,10 +20,9 @@ export const EditBook = () => {
 
     //Mount
     useEffect(() => {
-        BookService.getOneBook(bookId)
-            .then(result => {
-                setBook(result);
-            });
+        BookService.getOneBook(bookId).then((result) => {
+            setBook(result);
+        });
     }, [bookId]);
 
     const editBookSubmitHandler = async (e) => {
@@ -34,13 +32,14 @@ export const EditBook = () => {
             err.titleError = 'You should write title of book!';
         }
         if (book.url.trim() === '') {
-            err.urlError = 'You should upload URL link!'
+            err.urlError = 'You should upload URL link!';
         } else if (!URL_PATTERN.test(book.url)) {
             err.urlError = 'URL should start with "https://".';
         }
 
         if (book.additionalInfo.trim() === '') {
-            err.additionalInfoError = 'You should write additional information!';
+            err.additionalInfoError =
+                'You should write additional information!';
         }
         setBookError(err);
 
@@ -65,15 +64,18 @@ export const EditBook = () => {
             setImageFile(e.target.files?.[0] ?? null);
             return;
         }
-        setBook(state => ({
+        setBook((state) => ({
             ...state,
-            [e.target.name]: e.target.value
+            [e.target.name]: e.target.value,
         }));
     };
 
     return (
         <div className={style['main']}>
-            <form onSubmit={editBookSubmitHandler} className={style['create-form']}>
+            <form
+                onSubmit={editBookSubmitHandler}
+                className={style['create-form']}
+            >
                 <div>
                     <label htmlFor="title" className={style['create-textarea']}>
                         Title
@@ -86,7 +88,6 @@ export const EditBook = () => {
                         onChange={onChange}
                         className={style['create-input']}
                         placeholder="Enter title..."
-
                     />
                 </div>
                 {bookError.titleError && (
@@ -121,7 +122,10 @@ export const EditBook = () => {
                 )}
 
                 <div>
-                    <label htmlFor="documentationURL" className={style['create-textarea']}>
+                    <label
+                        htmlFor="documentationURL"
+                        className={style['create-textarea']}
+                    >
                         URL
                     </label>
                     <input
@@ -132,14 +136,16 @@ export const EditBook = () => {
                         onChange={onChange}
                         className={style['create-input']}
                         placeholder="Enter documentation URL..."
-
                     />
                 </div>
                 {bookError.urlError && (
                     <p className={style['error']}>{bookError.urlError}</p>
                 )}
                 <div>
-                    <label htmlFor="additionalInfo" className={style['create-textarea']}>
+                    <label
+                        htmlFor="additionalInfo"
+                        className={style['create-textarea']}
+                    >
                         Additional Information
                     </label>
                     <textarea
@@ -152,11 +158,12 @@ export const EditBook = () => {
                         onChange={onChange}
                         className={style['create-input']}
                         placeholder="Enter additional information..."
-
                     />
                 </div>
                 {bookError.additionalInfoError && (
-                    <p className={style['error']}>{bookError.additionalInfoError}</p>
+                    <p className={style['error']}>
+                        {bookError.additionalInfoError}
+                    </p>
                 )}
                 <button type="submit">Edit</button>
             </form>
