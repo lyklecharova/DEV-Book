@@ -6,13 +6,12 @@ import { URL_PATTERN } from '../../constants/constants';
 import style from './CreateBook.module.css';
 
 export const CreateBook = () => {
-
     const nav = useNavigate();
     const [book, setBook] = useState({
         title: '',
         image: '',
         url: '',
-        additionalInfo: ''
+        additionalInfo: '',
     });
 
     const [bookError, setBookError] = useState({});
@@ -29,23 +28,24 @@ export const CreateBook = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         if (book.image.trim() === '') {
-            err.imageError = 'You should upload image!'
+            err.imageError = 'You should upload image!';
         } else if (!URL_PATTERN.test(book.image)) {
             err.imageError = 'Image URL should start with "https://".';
         }
 
         if (book.title.trim() === '') {
-            err.titleError = 'You should write title of book!'
+            err.titleError = 'You should write title of book!';
         }
 
         if (book.url.trim() === '') {
-            err.urlError = 'You should upload URL link!'
+            err.urlError = 'You should upload URL link!';
         } else if (!URL_PATTERN.test(book.url)) {
             err.urlError = 'URL should start with "https://".';
         }
 
         if (book.additionalInfo.trim() === '') {
-            err.additionalInfoError = 'You should write additional information!'
+            err.additionalInfoError =
+                'You should write additional information!';
         }
         setBookError(err);
 
@@ -53,6 +53,7 @@ export const CreateBook = () => {
             const book = Object.fromEntries(new FormData(e.currentTarget));
             try {
                 await BookService.addBook(book);
+                alert('Your book has been submitted for approval.');
                 nav('/catalog');
             } catch (err) {
                 console.log(`Please try again ${err}`);
@@ -69,7 +70,11 @@ export const CreateBook = () => {
 
     return (
         <div className={style['main']}>
-            <form onSubmit={handleSubmit} className={style['create-form']} method="post">
+            <form
+                onSubmit={handleSubmit}
+                className={style['create-form']}
+                method="post"
+            >
                 <div>
                     <label htmlFor="title" className={style['create-textarea']}>
                         Title
@@ -82,7 +87,6 @@ export const CreateBook = () => {
                         onChange={handleInputChange}
                         className={style['create-input']}
                         placeholder="Enter title..."
-
                     />
                 </div>
 
@@ -102,7 +106,6 @@ export const CreateBook = () => {
                         onChange={handleInputChange}
                         className={style['create-input']}
                         placeholder="Upload image..."
-
                     />
                 </div>
 
@@ -111,7 +114,10 @@ export const CreateBook = () => {
                 )}
 
                 <div>
-                    <label htmlFor="documentationURL" className={style['create-textarea']}>
+                    <label
+                        htmlFor="documentationURL"
+                        className={style['create-textarea']}
+                    >
                         URL
                     </label>
                     <input
@@ -129,9 +135,11 @@ export const CreateBook = () => {
                     <p className={style['error']}>{bookError.urlError}</p>
                 )}
 
-
                 <div>
-                    <label htmlFor="additionalInfo" className={style['create-textarea']}>
+                    <label
+                        htmlFor="additionalInfo"
+                        className={style['create-textarea']}
+                    >
                         Additional information
                     </label>
                     <textarea
@@ -144,12 +152,13 @@ export const CreateBook = () => {
                         placeholder="Enter additional information...."
                         rows="4"
                         cols="50"
-
                     />
                 </div>
 
                 {bookError.additionalInfoError && (
-                    <p className={style['error']}>{bookError.additionalInfoError}</p>
+                    <p className={style['error']}>
+                        {bookError.additionalInfoError}
+                    </p>
                 )}
 
                 <button type="submit">Create</button>

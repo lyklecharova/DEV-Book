@@ -3,6 +3,7 @@ const router = express.Router();
 const { isLogUser } = require('../middleware/guards');
 
 const Book = require('../models/Books');
+const User = require('../models/User');
 
 // Create book - Logged
 router.post('/add', isLogUser, async (req, res) => {
@@ -15,12 +16,19 @@ router.post('/add', isLogUser, async (req, res) => {
             });
         }
 
+        const user = await User.findById(req.userId);
+
+        if (!user) {
+            return res.status(401).json({ error: 'User not found' });
+        }
         const newBook = await Book.create({
             title: title.trim(),
             image,
             url,
             additionalInfo,
             ownerId: req.userId,
+            submittedByEmail: user.email,
+            status: 'pending',
         });
 
         res.status(201).json(newBook);
@@ -33,16 +41,21 @@ router.post('/add', isLogUser, async (req, res) => {
     }
 });
 
+// Public catalog - show only approved books
 router.get('/', async (req, res) => {
-    const allBooks = await Book.find();
-    // console.log(allBooks);
-    res.json(allBooks);
+    try {
+        const approvedBooks = await Book.find({ status: 'approved' });
+        res.json(approvedBooks);
+    } catch (error) {
+        console.error('Error fetching books:', error);
+        res.status(500).json({ error: 'Failed to load books' });
+    }
 });
 
 router.get('/:id', async (req, res) => {
     try {
         const bookId = req.params.id;
-        const oneBook = await Book.findById(bookId);
+        const oneBook = await Book.findOne({ _id: bookId, status: 'approved' });
         // console.log(oneBook);
         res.json(oneBook);
     } catch (error) {
@@ -71,7 +84,9 @@ router.put('/:id', isLogUser, async (req, res) => {
 
         const { title, image, url, additionalInfo } = req.body;
 
-        const updateInfo = {};
+        const updateInfo = {
+            status: 'pending',
+        };
 
         if (title !== undefined) updateInfo.title = title;
         if (image !== undefined) updateInfo.image = image;
