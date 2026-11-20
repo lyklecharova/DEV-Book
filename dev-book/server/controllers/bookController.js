@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { isLogUser } = require('../middleware/guards');
+const { isLogUser, isAdmin } = require('../middleware/guards');
 
 const Book = require('../models/Books');
 const User = require('../models/User');
@@ -49,6 +49,79 @@ router.get('/', async (req, res) => {
     } catch (error) {
         console.error('Error fetching books:', error);
         res.status(500).json({ error: 'Failed to load books' });
+    }
+});
+
+// Admin - Get all pending books
+router.get('/admin/pending', isAdmin, async (req, res) => {
+    try {
+        const pendingBooks = await Book.find({ status: 'pending' }).sort({
+            _id: -1,
+        });
+
+        res.status(200).json(pendingBooks);
+    } catch (error) {
+        console.error('Error fetching pending books:', error);
+
+        res.status(500).json({
+            error: 'Failed to load pending books',
+        });
+    }
+});
+
+// Admin - Approve book
+router.patch('/admin/:id/approve', isAdmin, async (req, res) => {
+    try {
+        const book = await Book.findOneAndUpdate(
+            { _id: req.params.id, status: 'pending' },
+            { $set: { status: 'approved' } },
+            { new: true, runValidators: true },
+        );
+
+        if (!book) {
+            return res.status(404).json({
+                error: 'Pending book not found',
+            });
+        }
+
+        res.status(200).json({
+            message: 'Book approved successfully',
+            book,
+        });
+    } catch (error) {
+        console.error('Error approving book:', error);
+
+        res.status(500).json({
+            error: 'Failed to approve book',
+        });
+    }
+});
+
+// Admin - Reject book
+router.patch('/admin/:id/reject', isAdmin, async (req, res) => {
+    try {
+        const book = await Book.findOneAndUpdate(
+            { _id: req.params.id, status: 'pending' },
+            { $set: { status: 'rejected' } },
+            { new: true, runValidators: true },
+        );
+
+        if (!book) {
+            return res.status(404).json({
+                error: 'Pending book not found',
+            });
+        }
+
+        res.status(200).json({
+            message: 'Book rejected successfully',
+            book,
+        });
+    } catch (error) {
+        console.error('Error rejecting book:', error);
+
+        res.status(500).json({
+            error: 'Failed to reject book',
+        });
     }
 });
 

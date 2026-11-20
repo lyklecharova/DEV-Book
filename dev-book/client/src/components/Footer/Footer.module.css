@@ -14,3 +14,13 @@ footer>p {
     align-items: center;
     padding: 5px;
 }
+
+/* Responsive footer for Android and iOS devices */
+@media (max-width: 600px) {
+    footer>p {
+        font-size: 12px;
+        letter-spacing: 0.3px;
+        text-align: center;
+        padding: 10px 8px;
+    }
+}

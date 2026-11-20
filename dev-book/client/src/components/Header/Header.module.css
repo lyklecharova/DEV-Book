@@ -87,10 +87,11 @@ a {
         white-space: nowrap;
     }
 
-    /* Place the theme toggle on a separate row */
+    /* Keep the theme toggle compact on mobile devices */
     .ul-list>li:last-child {
-        flex-basis: 100%;
+        flex-basis: auto;
         display: flex;
         justify-content: center;
+        align-items: center;
     }
 }

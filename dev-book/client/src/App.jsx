@@ -3,6 +3,8 @@ import { useState, useCallback } from 'react';
 
 import { AuthContext } from './contexts/authContext';
 import AuthGuard from './components/guards/AuthGuard';
+import AdminGuard from './components/guards/AdminGuard';
+import { AdminDashboard } from './components/Admin/AdminDashboard';
 
 import { Home } from './components/Home/Home';
 import { Header } from './components/Header/Header';
@@ -26,11 +28,13 @@ function App() {
             const locStToken = token.token;
             const locStrEmail = token.email;
             const locStrId = token.userId;
+            const locStrRole = token.role;
             if (locStrEmail && locStToken) {
                 return {
                     email: locStrEmail,
                     token: locStToken,
                     userId: locStrId,
+                    role: locStrRole ?? 'user',
                 };
             }
         }
@@ -45,6 +49,7 @@ function App() {
     const value = {
         email: auth?.email ?? null,
         userId: auth?.userId ?? null,
+        role: auth?.role ?? 'user',
         isLog: !!auth?.email,
         isAuthenticated,
     };
@@ -59,6 +64,10 @@ function App() {
                     <Route path="/books/:bookId" element={<BookDetails />} />
                     <Route path="/login" element={<Login />} />
                     <Route path="/register" element={<Register />} />
+                    <Route element={<AdminGuard />}>
+                        <Route path="/admin" element={<AdminDashboard />} />
+                    </Route>
+
                     <Route path="*" element={<ErrorPage />} />
 
                     <Route element={<AuthGuard />}>

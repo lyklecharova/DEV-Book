@@ -4,12 +4,15 @@
 *::after {
   box-sizing: border-box;
 }
+
 a {
   text-decoration: none;
 }
+
 ul {
   padding-left: 0;
 }
+
 /* Remove default margin */
 body,
 h1,
@@ -37,9 +40,25 @@ html:focus-within {
 
 /* Set core body defaults */
 body {
+  /* Fallback for older browsers */
   min-height: 100vh;
+  /* Dynamic viewport height for modern browsers (iOS, Android, desktop) */
+  min-height: 100dvh;
+
   text-rendering: optimizeSpeed;
   line-height: 1.5;
+}
+
+#root {
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+}
+
+#root>main {
+  flex: 1;
+  width: 100%;
 }
 
 /* A elements that don't have a class get default styles */
@@ -65,9 +84,9 @@ select {
 /* Remove all animations, transitions and smooth scroll for people that prefer not to see them */
 @media (prefers-reduced-motion: reduce) {
   html:focus-within {
-   scroll-behavior: auto;
+    scroll-behavior: auto;
   }
-  
+
   *,
   *::before,
   *::after {
