@@ -20,6 +20,8 @@ async function main() {
     try {
         await mongoose.connect(MONGO_DB_CONNECTION_STRING);
         console.log('DB connected');
+        console.log('Database name:', mongoose.connection.name);
+        console.log('MongoDB host:', mongoose.connection.host);
 
         app.listen(PORT, () => {
             console.log('Server running on', PORT);

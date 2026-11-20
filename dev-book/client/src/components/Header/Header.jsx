@@ -1,23 +1,27 @@
-import { useContext } from "react";
-import { Link, NavLink } from "react-router-dom";
+import { useContext } from 'react';
+import { Link, NavLink } from 'react-router-dom';
 
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faDev } from "@fortawesome/free-brands-svg-icons";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faDev } from '@fortawesome/free-brands-svg-icons';
 
-import style from "./Header.module.css";
-import { AuthContext } from "../../contexts/authContext";
-import { ThemeToggle } from "../ThemeButton/ThemeButton";
-import { ThemeContext } from "../../contexts/ThemeContext";
+import style from './Header.module.css';
+import { AuthContext } from '../../contexts/authContext';
+import { ThemeToggle } from '../ThemeButton/ThemeButton';
+import { ThemeContext } from '../../contexts/ThemeContext';
 
 export const Header = () => {
-    const { isLog } = useContext(AuthContext);
+    const { isLog, role, email } = useContext(AuthContext);
     const { theme } = useContext(ThemeContext);
 
     const colorLink = (name, link) => {
         return (
             <NavLink
                 style={({ isActive }) => ({
-                    color: isActive ? "#0077cc" : theme === "Light" ? "#2db583" : "#000",
+                    color: isActive
+                        ? '#0077cc'
+                        : theme === 'Light'
+                          ? '#2db583'
+                          : '#000',
                 })}
                 to={link}
             >
@@ -27,45 +31,56 @@ export const Header = () => {
     };
 
     return (
-        <header className={style["header"]}>
-            <nav className={style["nav-bar"]}>
+        <header className={style['header']}>
+            <nav className={style['nav-bar']}>
                 <Link to="/">
                     Dev-Book
-                    <div className={style["flav-icon"]}>
+                    <div className={style['flav-icon']}>
                         <FontAwesomeIcon icon={faDev} />
                     </div>
                 </Link>
 
-                <ul role="list" className={style["ul-list"]}>
-                    <li className={style["li-element"]}>
-                        {colorLink("Home", "/")}
+                <ul role="list" className={style['ul-list']}>
+                    <li className={style['li-element']}>
+                        {colorLink('Home', '/')}
                     </li>
 
-                    <li className={style["li-element"]}>
-                        {colorLink("Catalog", "/catalog")}
+                    <li className={style['li-element']}>
+                        {colorLink('Catalog', '/catalog')}
                     </li>
 
                     {isLog && (
                         <>
-                            <li className={style["li-element"]}>
-                                {colorLink("Add Book", "/create-books")}
+                            <li className={style['li-element']}>
+                                {colorLink('Add Book', '/create-books')}
                             </li>
-
-                            <li className={style["li-element"]}>
-                                {colorLink("Logout", "/logout")}
+                            {role === 'admin' && (
+                                <li className={style['li-element']}>
+                                    {colorLink('Admin', '/admin')}
+                                </li>
+                            )}
+                            <li className={style['li-element']}>
+                                {colorLink('Logout', '/logout')}
                             </li>
                         </>
                     )}
                     {!isLog && (
                         <>
-                            <li className={style["li-element"]}>
-                                {colorLink("Login", "/login")}
+                            <li className={style['li-element']}>
+                                {colorLink('Login', '/login')}
                             </li>
 
-                            <li className={style["li-element"]}>
-                                {colorLink("Register", "/register")}
+                            <li className={style['li-element']}>
+                                {colorLink('Register', '/register')}
                             </li>
                         </>
+                    )}
+                    {isLog && email && (
+                        <li className={style['li-element']}>
+                            <span className={style['user-email']} title={email}>
+                                {email}
+                            </span>
+                        </li>
                     )}
                     <li>
                         <ThemeToggle />

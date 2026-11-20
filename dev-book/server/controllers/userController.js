@@ -7,6 +7,7 @@ const router = express.Router();
 const User = require('../models/User');
 const { JWT_SECRET } = require('../constants/constants');
 const { isGuest } = require('../middleware/guards');
+
 // User registration - Not logged in
 router.post('/register', isGuest, async (req, res) => {
     try {
@@ -73,7 +74,12 @@ router.post('/login', isGuest, async (req, res) => {
         const token = jwt.sign({ userId: user._id }, JWT_SECRET, {
             expiresIn: '1d',
         });
-        res.status(200).json({ token, userId: user._id, email: email });
+        res.status(200).json({
+            token,
+            userId: user._id,
+            email: email,
+            role: user.role || 'user',
+        });
     } catch (error) {
         res.status(400).json({ error: 'Login failed' });
     }

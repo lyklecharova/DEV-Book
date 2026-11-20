@@ -52,6 +52,15 @@ a {
     align-items: center;
 }
 
+.user-email {
+    display: inline-block;
+    color: var(--text-color);
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 0.3px;
+    white-space: nowrap;
+}
+
 /* Responsive header for Android and iOS devices */
 @media (max-width: 600px) {
     .nav-bar {
@@ -87,10 +96,19 @@ a {
         white-space: nowrap;
     }
 
-    /* Place the theme toggle on a separate row */
+    /* Keep the theme toggle compact on mobile devices */
     .ul-list>li:last-child {
-        flex-basis: 100%;
+        flex-basis: auto;
         display: flex;
         justify-content: center;
+        align-items: center;
+    }
+
+    .user-email {
+        font-size: 12px;
+        letter-spacing: 0;
+        max-width: 250px;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
 }
