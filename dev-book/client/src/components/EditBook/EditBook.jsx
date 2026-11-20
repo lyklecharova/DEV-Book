@@ -14,6 +14,7 @@ export const EditBook = () => {
         url: '',
         additionalInfo: '',
     });
+    const [imageFile, setImageFile] = useState(null);
 
     const [bookError, setBookError] = useState({});
 
@@ -27,11 +28,6 @@ export const EditBook = () => {
     const editBookSubmitHandler = async (e) => {
         e.preventDefault();
         const err = {};
-        if (book.image.trim() === '') {
-            err.imageError = 'You should upload image!';
-        } else if (!URL_PATTERN.test(book.image)) {
-            err.imageError = 'Image URL should start with "https://".';
-        }
         if (book.title.trim() === '') {
             err.titleError = 'You should write title of book!';
         }
@@ -49,16 +45,12 @@ export const EditBook = () => {
 
         if (Object.keys(err).length === 0) {
             // extract data from the form to create an object with values entered by the user
-            const editedBook = {
-                title: e.currentTarget.title.value,
-                image: e.currentTarget.image.value,
-                url: e.currentTarget.url.value,
-                additionalInfo: e.currentTarget.additionalInfo.value,
-            };
             try {
-                await BookService.editBook({
-                    ...editedBook,
-                    _id: bookId,
+                await BookService.editBook(book._id, {
+                    title: book.title,
+                    url: book.url,
+                    additionalInfo: book.additionalInfo,
+                    image: imageFile,
                 });
                 nav('/catalog');
             } catch (err) {
@@ -68,6 +60,10 @@ export const EditBook = () => {
     };
 
     const onChange = (e) => {
+        if (e.target.name === 'image') {
+            setImageFile(e.target.files?.[0] ?? null);
+            return;
+        }
         setBook((state) => ({
             ...state,
             [e.target.name]: e.target.value,
@@ -102,15 +98,24 @@ export const EditBook = () => {
                     <label htmlFor="image" className={style['create-textarea']}>
                         Image
                     </label>
+                    {book.image && (
+                        <img
+                            src={book.image}
+                            alt={book.title || 'Book cover'}
+                            style={{ maxWidth: '160px', display: 'block' }}
+                        />
+                    )}
                     <input
-                        type="text"
+                        type="file"
                         id="image"
                         name="image"
-                        value={book.image}
+                        accept="image/png,image/jpeg,image/webp"
                         onChange={onChange}
                         className={style['create-input']}
-                        placeholder="Upload image..."
                     />
+                    {imageFile && (
+                        <p className={style['file-name']}>Attached: {imageFile.name}</p>
+                    )}
                 </div>
                 {bookError.imageError && (
                     <p className={style['error']}>{bookError.imageError}</p>

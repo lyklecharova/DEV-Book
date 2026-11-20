@@ -27,3 +27,4 @@ dist-ssr
 .env
 .env.*
 !.env.example
+gcs-key.json
