@@ -10,7 +10,7 @@ import { ThemeToggle } from '../ThemeButton/ThemeButton';
 import { ThemeContext } from '../../contexts/ThemeContext';
 
 export const Header = () => {
-    const { isLog, role } = useContext(AuthContext);
+    const { isLog, role, email } = useContext(AuthContext);
     const { theme } = useContext(ThemeContext);
 
     const colorLink = (name, link) => {
@@ -74,6 +74,13 @@ export const Header = () => {
                                 {colorLink('Register', '/register')}
                             </li>
                         </>
+                    )}
+                    {isLog && email && (
+                        <li className={style['li-element']}>
+                            <span className={style['user-email']} title={email}>
+                                {email}
+                            </span>
+                        </li>
                     )}
                     <li>
                         <ThemeToggle />
