@@ -99,7 +99,7 @@ export const Register = () => {
         } catch (error) {
             // Handle registration failure
             console.error('Registration failed:', error);
-            setError('Registration failed. Please try again.');
+            setError(error.message);
         }
     };
 

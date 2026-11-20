@@ -11,19 +11,18 @@ import style from './Login.module.css';
 
 export const Login = () => {
     const { isLog, isAuthenticated } = useContext(AuthContext);
-    const [error, setError] = useState(false);
     const [errorMessage, setErrorMessage] = useState(null);
     const [changePassword, setChangePassword] = useState(true);
     const navigate = useNavigate();
 
     if (isLog) {
         //  navigate('/');
-        return <Navigate to="/" />
+        return <Navigate to="/" />;
     }
 
     const [login, setLogin] = useState({
         email: '',
-        password: ''
+        password: '',
     });
 
     const onChangeHandler = (e) => {
@@ -41,7 +40,7 @@ export const Login = () => {
         e.preventDefault();
 
         // Checking if the email and password fields are empty
-        if (login.email.trim() === "" || login.password.trim() === "") {
+        if (login.email.trim() === '' || login.password.trim() === '') {
             // Setting an error message if either field is empty
             setErrorMessage('Please fill in all fields.');
             return;
@@ -57,27 +56,34 @@ export const Login = () => {
             const loginInformation = await userService.login(login);
             // Assuming loginInformation indicates successful login
             if (loginInformation) {
-                localStorage.setItem("UserInfo", JSON.stringify(loginInformation));
+                localStorage.setItem(
+                    'UserInfo',
+                    JSON.stringify(loginInformation),
+                );
                 // Update authentication state
                 isAuthenticated(loginInformation);
-                console.log("Login successful:", loginInformation);
+                console.log('Login successful:', loginInformation);
                 // Redirect to homepage after successful login
                 navigate('/');
             } else {
                 // If loginInformation is null or false, indicating unsuccessful login
-                setError(true);
+
                 setErrorMessage('Invalid email or password');
             }
         } catch (error) {
             console.error('Login failed:', error);
-            setError(true);
-            setErrorMessage('Login failed. Please try again.');
+
+            setErrorMessage(error.message);
         }
     };
 
     return (
         <div className={style['login-container']}>
-            <form onSubmit={onSubmitHandler} method="post" className={style['login-form']}>
+            <form
+                onSubmit={onSubmitHandler}
+                method="post"
+                className={style['login-form']}
+            >
                 <h1 className={style['login-heading']}>Login</h1>
                 <div className={style['form-group']}>
                     <label className={style['form-label']} htmlFor="email">
@@ -102,7 +108,7 @@ export const Login = () => {
                     </label>
                     <input
                         className={style['form-input']}
-                        type={changePassword ? "password" : "text"}
+                        type={changePassword ? 'password' : 'text'}
                         id="password"
                         onChange={onChangeHandler}
                         name="password"
@@ -115,12 +121,20 @@ export const Login = () => {
                         className={style['password-toggle']}
                         onClick={togglePasswordVisibility}
                     >
-                        <FontAwesomeIcon icon={changePassword ? faEye : faEyeSlash} />
+                        <FontAwesomeIcon
+                            icon={changePassword ? faEye : faEyeSlash}
+                        />
                     </span>
                 </div>
-                {error && <p className={style['error']}>Invalid email or password</p>}
+                {errorMessage && (
+                    <p className={style['error']}>{errorMessage}</p>
+                )}
 
-                <input type="submit" defaultValue="Login" className={style['form-button']} />
+                <input
+                    type="submit"
+                    value="Login"
+                    className={style['form-button']}
+                />
 
                 <div>
                     Do not have an account?
