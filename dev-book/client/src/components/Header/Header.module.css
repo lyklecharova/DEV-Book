@@ -36,6 +36,11 @@
     cursor: pointer;
 }
 
+.li-element>a:visited,
+.nav-bar>a:visited {
+    color: var(--text-color);
+}
+
 .flav-icon {
     /* color: #f9faff; */
     color: var(--text-color);

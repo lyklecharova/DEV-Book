@@ -7,11 +7,9 @@ import { faDev } from '@fortawesome/free-brands-svg-icons';
 import style from './Header.module.css';
 import { AuthContext } from '../../contexts/authContext';
 import { ThemeToggle } from '../ThemeButton/ThemeButton';
-import { ThemeContext } from '../../contexts/ThemeContext';
 
 export const Header = () => {
     const { isLog, role, email } = useContext(AuthContext);
-    const { theme } = useContext(ThemeContext);
     const [isMenuOpen, setIsMenuOpen] = useState(false);
 
     const colorLink = (name, link) => {
@@ -19,11 +17,7 @@ export const Header = () => {
             <NavLink
                 onClick={() => setIsMenuOpen(false)}
                 style={({ isActive }) => ({
-                    color: isActive
-                        ? '#0077cc'
-                        : theme === 'Light'
-                          ? '#222222'
-                          : '#ffffff',
+                    color: isActive ? '#0077cc' : 'var(--text-color)',
                 })}
                 to={link}
             >
