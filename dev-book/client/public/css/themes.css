@@ -7,14 +7,9 @@
 
 [data-theme='Light'] {
     --background-color: #eeeff3;
-    /* Dark theme background color */
     --text-color: #000000;
-    /* Dark theme text color */
-
     --header-color: #e2e4e9;
-    /* Light theme header color */
     --footer-color: #2db583;
-    /* Light theme footer color */
 }
 
 [data-theme='Dark'] {
