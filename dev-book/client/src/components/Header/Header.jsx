@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -12,16 +12,18 @@ import { ThemeContext } from '../../contexts/ThemeContext';
 export const Header = () => {
     const { isLog, role, email } = useContext(AuthContext);
     const { theme } = useContext(ThemeContext);
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
 
     const colorLink = (name, link) => {
         return (
             <NavLink
+                onClick={() => setIsMenuOpen(false)}
                 style={({ isActive }) => ({
                     color: isActive
                         ? '#0077cc'
                         : theme === 'Light'
-                          ? '#2db583'
-                          : '#000',
+                          ? '#222222'
+                          : '#ffffff',
                 })}
                 to={link}
             >
@@ -39,8 +41,22 @@ export const Header = () => {
                         <FontAwesomeIcon icon={faDev} />
                     </div>
                 </Link>
+                <button
+                    type="button"
+                    className={style['menu-toggle']}
+                    onClick={() => setIsMenuOpen(!isMenuOpen)}
+                    aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
+                    aria-expanded={isMenuOpen}
+                >
+                    {isMenuOpen ? '✕' : '☰'}
+                </button>
 
-                <ul role="list" className={style['ul-list']}>
+                <ul
+                    role="list"
+                    className={`${style['ul-list']} ${
+                        isMenuOpen ? style['menu-open'] : ''
+                    }`}
+                >
                     <li className={style['li-element']}>
                         {colorLink('Home', '/')}
                     </li>
