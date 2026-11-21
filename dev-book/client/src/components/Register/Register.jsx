@@ -92,7 +92,7 @@ export const Register = () => {
 
         try {
             // Check if user already exists with the same email
-            const userExists = await userService.register(register);
+            await userService.register(register);
 
             // Redirect to login page after successful registration
             navigate('/login');

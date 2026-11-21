@@ -15,15 +15,15 @@ export const Login = () => {
     const [changePassword, setChangePassword] = useState(true);
     const navigate = useNavigate();
 
-    if (isLog) {
-        //  navigate('/');
-        return <Navigate to="/" />;
-    }
-
     const [login, setLogin] = useState({
         email: '',
         password: '',
     });
+
+    if (isLog) {
+        //  navigate('/');
+        return <Navigate to="/" />;
+    }
 
     const onChangeHandler = (e) => {
         const { name, value } = e.target;
@@ -62,7 +62,6 @@ export const Login = () => {
                 );
                 // Update authentication state
                 isAuthenticated(loginInformation);
-                console.log('Login successful:', loginInformation);
                 // Redirect to homepage after successful login
                 navigate('/');
             } else {
