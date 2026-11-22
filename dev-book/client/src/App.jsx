@@ -1,5 +1,5 @@
 import { Routes, Route } from 'react-router-dom';
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 
 import { AuthContext } from './contexts/authContext';
 import AuthGuard from './components/guards/AuthGuard';
@@ -44,6 +44,18 @@ function App() {
 
     const isAuthenticated = useCallback((info) => {
         setAuth(info);
+    }, []);
+        useEffect(() => {
+        const handleUnauthorized = () => {
+            localStorage.removeItem('UserInfo');
+            setAuth(null);
+        };
+
+        window.addEventListener('auth:unauthorized', handleUnauthorized);
+
+        return () => {
+            window.removeEventListener('auth:unauthorized', handleUnauthorized);
+        };
     }, []);
 
     const value = {

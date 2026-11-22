@@ -92,14 +92,14 @@ export const Register = () => {
 
         try {
             // Check if user already exists with the same email
-            const userExists = await userService.register(register);
+            await userService.register(register);
 
             // Redirect to login page after successful registration
             navigate('/login');
         } catch (error) {
             // Handle registration failure
             console.error('Registration failed:', error);
-            setError('Registration failed. Please try again.');
+            setError(error.message);
         }
     };
 

@@ -6,6 +6,11 @@ function authHeader() {
             ?.token,
     };
 }
+function handleUnauthorized(response) {
+    if (response.status === 401) {
+        window.dispatchEvent(new Event('auth:unauthorized'));
+    }
+}
 
 export async function addBook(book) {
     const URL = `${API_URL}/book/add`;
@@ -21,6 +26,7 @@ export async function addBook(book) {
         body: form,
     });
     if (!response.ok) {
+        handleUnauthorized(response);
         throw new Error(`Failed to create book. Status: ${response.status}`);
     }
 }
@@ -62,6 +68,7 @@ export async function editBook(bookId, fields) {
         body: form,
     });
     if (!response.ok) {
+        handleUnauthorized(response);
         throw new Error(`Failed to update book. Status: ${response.status}`);
     }
 
@@ -77,6 +84,7 @@ export async function deleteBook(id) {
         headers: authHeader(),
     });
     if (!response.ok) {
+        handleUnauthorized(response);
         throw new Error(`Failed to delete book. Status: ${response.status}`);
     }
 
@@ -97,6 +105,7 @@ export async function getPendingBooks() {
     });
 
     if (!response.ok) {
+        handleUnauthorized(response);
         throw new Error(
             `Failed to load pending books. Status: ${response.status}`,
         );
@@ -118,6 +127,7 @@ export async function approveBook(id) {
     });
 
     if (!response.ok) {
+        handleUnauthorized(response);
         throw new Error(`Failed to approve book. Status: ${response.status}`);
     }
 
@@ -137,6 +147,7 @@ export async function rejectBook(id) {
     });
 
     if (!response.ok) {
+        handleUnauthorized(response);
         throw new Error(`Failed to reject book. Status: ${response.status}`);
     }
 
