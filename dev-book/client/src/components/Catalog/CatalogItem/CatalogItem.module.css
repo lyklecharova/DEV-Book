@@ -1,134 +1,75 @@
-@import url('../../../../public//css/themes');
-
 .items {
-  max-width: 1000px;
-  margin: 50px auto;
-  padding: 0 20px;
+  width: 100%;
+  max-width: 360px;
+  min-width: 0;
+  margin-inline: auto;
   display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
 }
 
 .card {
-  position: relative;
-  margin: 20px 0;
-  width: 250px;
-  height: 350px;
-  /* background: #ffffff; */
-  background-color: var(--background-color);
-  box-shadow: inset 100px 0 50px rgba(0, 0, 0, 0.5);
+  width: 100%;
+  min-width: 0;
   overflow: hidden;
-  transition: transform 0.3s ease;
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  background-color: var(--surface-color);
 }
 
-.card:hover {
-  z-index: 1111;
-  transform: perspective(2000px) rotate(-10deg) scale(1.05);
-  box-shadow: inset 20px 0 50px rgba(0, 0, 0, 0.5);
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  .card {
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+  }
+
+  .card:hover {
+    transform: perspective(900px) rotateY(-8deg) rotateZ(-3deg);
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.2);
+  }
 }
 
-.card .items-image {
+.items-image {
   width: 100%;
-  height: 100%;
-  border: 1px solid #000;
-  box-sizing: border-box;
-  transform-origin: left;
-  transition: 1s;
-}
-
-.card .items-image img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+  height: clamp(180px, 30vw, 270px);
+  padding: 12px;
+  object-fit: contain;
+  background-color: var(--background-color);
 }
 
 .card-details {
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  width: 100%;
-  /* background: rgba(0, 0, 0, 0.6); */
-  background-color: var(--background-color);
-  padding: 10px;
-  /* color: #fff; */
+  padding: 16px;
+  overflow-wrap: anywhere;
   color: var(--text-color);
-  transform: translateY(100%);
-  transition: transform 0.3s ease;
 }
 
-.card:hover .card-details {
-  transform: translateY(0);
+.items-title {
+  margin-bottom: 8px;
+  font-size: 1.2rem;
 }
 
 .content-btn {
   display: flex;
-  justify-content: center;
-  gap: 10px;
-  margin-top: 10px;
+  flex-wrap: wrap;
+  gap: 8px;
 }
 
 .items-edit,
-.details-button {
-  /* background-color: #2db583; */
-  background-color: var(--background-color);
-  font-weight: 600;
-  letter-spacing: 1px;
-  /* color: #fff; */
+.details-button,
+.delete-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: auto;
+  min-height: 44px;
+  margin-top: 12px;
+  padding: 6px 12px;
+  border: 1px solid var(--accent-color);
+  border-radius: 8px;
+  background-color: var(--surface-color);
   color: var(--text-color);
-  text-transform: uppercase;
-  padding: 10px 20px;
-  border: 3px solid #2db583;
-  border-radius: 10px;
+  font-weight: 600;
   cursor: pointer;
-  font-size: 14px;
 }
 
-/* Mobile responsive styles */
-@media (max-width: 600px) {
-  .items {
-    width: 100%;
-    max-width: 250px;
-    margin: 0 auto;
-    padding: 0;
-  }
-
-  .card {
-    width: 200px;
-    height: 280px;
-    margin: 0;
-  }
-
-  .card:hover {
-    transform: none;
-  }
-
-  .card .items-image {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-
-  /* Prevent the hover effect from hiding the book details */
-  .card:hover .card-details {
-    transform: translateY(100%);
-  }
-
-  /* Expand the card to display the full description */
-  .card:has(.expanded) {
-    height: auto;
-    min-height: 280px;
-    overflow: visible;
-  }
-
-  .card:has(.expanded) .items-image {
-    display: none;
-  }
-
-  .card:has(.expanded) .card-details {
-    position: relative;
-    bottom: auto;
-    width: 100%;
-    box-sizing: border-box;
-    transform: none;
-  }
+.delete-button {
+  border-color: var(--danger-color);
+  color: var(--danger-color);
 }

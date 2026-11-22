@@ -5,7 +5,10 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  min-height: 100vh;
+  min-height: 100svh;
+  padding: 24px 16px;
+  isolation: isolate;
   position: relative;
 }
 
@@ -28,7 +31,7 @@
   width: 100%;
   padding: 20px;
   /* background-color: #ffffff7c; */
-  background-color: var(--background-color);
+  background-color: var(--surface-color);
   box-shadow: 0 0 10px rgba(145, 136, 136, 0.1);
   border-radius: 8px;
   backdrop-filter: blur(10px);
@@ -59,9 +62,10 @@
   margin-top: 8px;
   color: var(--text-color);
   font-size: 14px;
+  overflow-wrap: anywhere;
 }
 
-button {
+.create-form button[type="submit"] {
   background-color: #4caf50;
   color: #fff;
   padding: 10px 20px;
@@ -72,7 +76,7 @@ button {
   width: 100%;
 }
 
-button:hover {
+.create-form button[type="submit"]:hover {
   background-color: #45a049;
 }
 
@@ -80,7 +84,7 @@ button:hover {
   /* color: #861e25; */
   color: var(--text-color);
   text-align: center;
-  position: sticky;
+  overflow-wrap: anywhere;
   font-size: 20px;
   margin: 5px;
   font-weight: bold;

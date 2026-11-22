@@ -26,9 +26,9 @@
 }
 
 .admin-book-card {
-    background-color: #242424;
-    color: #fff;
-    border: 1px solid #555;
+    background-color: var(--surface-color);
+    color: var(--text-color);
+    border: 1px solid var(--border-color);
     border-radius: 12px;
     padding: 25px;
     text-align: center;
@@ -101,7 +101,7 @@
 }
 
 .admin-error {
-    color: #ff6b6b;
+    color: var(--danger-color);
     text-align: center;
     margin-bottom: 20px;
 }

@@ -17,7 +17,7 @@ export const Header = () => {
             <NavLink
                 onClick={() => setIsMenuOpen(false)}
                 style={({ isActive }) => ({
-                    color: isActive ? '#0077cc' : 'var(--text-color)',
+                    color: isActive ? 'var(--accent-color)' : 'var(--text-color)',
                 })}
                 to={link}
             >
@@ -29,7 +29,7 @@ export const Header = () => {
     return (
         <header className={style['header']}>
             <nav className={style['nav-bar']}>
-                <Link to="/">
+                <Link to="/" onClick={() => setIsMenuOpen(false)}>
                     Dev-Book
                     <div className={style['flav-icon']}>
                         <FontAwesomeIcon icon={faDev} />
@@ -41,11 +41,13 @@ export const Header = () => {
                     onClick={() => setIsMenuOpen(!isMenuOpen)}
                     aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
                     aria-expanded={isMenuOpen}
+                    aria-controls="main-navigation"
                 >
                     {isMenuOpen ? '✕' : '☰'}
                 </button>
 
                 <ul
+                    id="main-navigation"
                     role="list"
                     className={`${style['ul-list']} ${
                         isMenuOpen ? style['menu-open'] : ''

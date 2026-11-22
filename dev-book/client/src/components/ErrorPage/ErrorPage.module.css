@@ -1,19 +1,13 @@
 @import url('../../../public/css/themes');
 
 .error {
-    position: relative;
-    height: 90vh;
+    display: grid;
+    place-items: center;
+    min-height: 70vh;
+    padding: 24px 16px;
 }
 
 .error-image {
-    position: absolute;
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-color: var(--background-color);
-
-    top: 70px;
-    left: 400px;
-    width: 900px;
-    height: 750px;
+    width: min(100%, 900px);
+    height: auto;
 }

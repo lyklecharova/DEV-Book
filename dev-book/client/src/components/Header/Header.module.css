@@ -22,7 +22,8 @@
 .ul-list {
     display: flex;
     flex-direction: row;
-    gap: 50px;
+    align-items: center;
+    gap: clamp(12px, 2vw, 30px);
     margin: 7px 0px 7px 0px;
 }
 
@@ -58,7 +59,7 @@ a {
 }
 
 .user-email {
-    display: inline-block;
+    display: block;
     color: var(--text-color);
     background-color: rgba(255, 255, 255, 0.08);
     padding: 8px 12px;
@@ -68,6 +69,9 @@ a {
     font-weight: 600;
     letter-spacing: 0.3px;
     white-space: nowrap;
+    max-width: min(22vw, 250px);
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .menu-toggle {
@@ -75,13 +79,13 @@ a {
 }
 
 /* Responsive header for Android and iOS devices */
-@media (max-width: 600px) {
+@media (max-width: 900px) {
     .menu-toggle {
         display: flex;
         align-items: center;
         justify-content: center;
-        width: 42px;
-        height: 42px;
+        width: 44px;
+        height: 44px;
         padding: 0;
         border: 1px solid var(--text-color);
         border-radius: 6px;
@@ -120,7 +124,7 @@ a {
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        gap: 16px;
+        gap: 4px;
         width: 100%;
         margin: 0;
         padding: 0;
@@ -129,10 +133,14 @@ a {
 
     .ul-list.menu-open {
         display: flex;
+        padding-top: 12px;
     }
 
     .li-element>a {
-        font-size: 12px;
+        justify-content: center;
+        min-height: 44px;
+        padding-inline: 12px;
+        font-size: 14px;
         letter-spacing: 0.5px;
         white-space: nowrap;
     }
@@ -151,7 +159,7 @@ a {
         letter-spacing: 0.3px;
         font-size: 12px;
         letter-spacing: 0;
-        max-width: 250px;
+        max-width: min(250px, 80vw);
         overflow: hidden;
         text-overflow: ellipsis;
     }

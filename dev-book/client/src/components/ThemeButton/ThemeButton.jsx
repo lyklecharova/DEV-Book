@@ -2,27 +2,20 @@ import { useContext } from "react";
 import { ThemeContext } from "../../contexts/ThemeContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSun, faMoon } from "@fortawesome/free-solid-svg-icons";
+import styles from "./ThemeButton.module.css";
 
 export const ThemeToggle = () => {
   const { theme, toggleTheme } = useContext(ThemeContext);
+  const isLight = theme === "Light";
 
   return (
     <button
-      style={{
-        backgroundColor: theme === "Light" ? "black" : "white",
-        color: theme === "Light" ? "white" : "black",
-        padding: "8px 16px",
-        borderRadius: "4px",
-        cursor: "pointer",
-        fontSize: "25px",
-      }}
+      type="button"
+      className={styles.toggle}
+      aria-label={isLight ? "Switch to dark theme" : "Switch to light theme"}
       onClick={toggleTheme}
     >
-      {theme === "Light" ? (
-        <FontAwesomeIcon icon={faMoon} style={{ color: "#74C0FC" }} />
-      ) : (
-        <FontAwesomeIcon icon={faSun} style={{ color: "#FFD43B" }} />
-      )}
+      <FontAwesomeIcon icon={isLight ? faMoon : faSun} aria-hidden="true" />
     </button>
   );
 };

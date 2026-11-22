@@ -1,6 +1,6 @@
 import React from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { useContext, useState } from 'react';
+import { Link } from 'react-router-dom';
+import { useContext } from 'react';
 
 import { AuthContext } from '../../../contexts/authContext';
 import * as BookService from '../../../../service/BookService';
@@ -12,14 +12,11 @@ export const CatalogItem = React.memo(
         _id,
         title,
         image,
-        additionalInfo,
+        additionalInfo = '',
         ownerId,
         deleteHandler,
     }) => {
         const { userId } = useContext(AuthContext);
-        const nav = useNavigate();
-        // State to expand the book information
-        const [expanded, setExpanded] = useState(false);
         const deleteClickHandler = async () => {
             const confirmDelete = window.confirm(
                 'Are you sure you want to delete this book?',
@@ -28,7 +25,6 @@ export const CatalogItem = React.memo(
                 try {
                     await BookService.deleteBook(_id);
                     deleteHandler(_id);
-                    nav('/catalog');
                 } catch (error) {
                     console.error('Error deleting book:', error);
                 }
@@ -37,11 +33,7 @@ export const CatalogItem = React.memo(
 
         return (
             <div className={style['items']}>
-                {/* onClick event to expand/collapse the book */}
-                <div
-                    className={style['card']}
-                    onClick={() => setExpanded(!expanded)}
-                >
+                <article className={style['card']}>
                     <img
                         className={style['items-image']}
                         src={image || '/book-covers/no-cover.svg'}
@@ -52,9 +44,7 @@ export const CatalogItem = React.memo(
                                 '/book-covers/no-cover.svg';
                         }}
                     />
-                    <div
-                        className={`${style['card-details']} ${expanded ? style['expanded'] : ''}`}
-                    >
+                    <div className={style['card-details']}>
                         <h2 className={style['items-title']}>{title}</h2>
                         {additionalInfo.length > 50 ? (
                             <div>
@@ -62,16 +52,15 @@ export const CatalogItem = React.memo(
                                 <p className={style['items-description']}>
                                     {`${additionalInfo.slice(0, 150)}${additionalInfo.length > 150 ? '...' : ''}`}
                                 </p>
-                                {/* Button to open another page */}
-                                <button onClick={() => nav(`/books/${_id}`)}>
-                                    Read More
-                                </button>
                             </div>
                         ) : (
                             <p className={style['items-description']}>
                                 {additionalInfo}
                             </p>
                         )}
+                        <Link className={style['details-button']} to={`/books/${_id}`}>
+                            View details
+                        </Link>
                         {userId === ownerId && (
                             <div className={style['content-btn']}>
                                 <Link
@@ -89,7 +78,7 @@ export const CatalogItem = React.memo(
                             </div>
                         )}
                     </div>
-                </div>
+                </article>
             </div>
         );
     },
