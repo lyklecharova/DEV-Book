@@ -55,6 +55,12 @@
   border-radius: 4px;
 }
 
+.file-name {
+  margin-top: 8px;
+  color: var(--text-color);
+  font-size: 14px;
+}
+
 button {
   background-color: #4caf50;
   color: #fff;
