@@ -1,9 +1,42 @@
-# DEV-Book
+# 📚 DEV-Book
 
-Project is Single Page Application (SPA) created for books using React for the Frontend (FE) and NodeJS, Express.JS, MongoDB for the Backend (BE).
-<h1 align="center" id="title">DEV-Book</h1>
+### Full-Stack Book & Knowledge-Sharing Platform
 
-<p id="description">The DEV-Book Project is a web application that allows users to create and manage books. The main idea is to provide a platform where users can document and organize their knowledge on various topics, whether it be programming languages, technologies, or any other subject of interest. Users can create book entries, write descriptions about the content, upload images related to the topic, and provide links to official documentation.</p>
+DEV-Book is a full-stack Single Page Application (SPA)
+built with React, Node.js, Express.js and MongoDB.
+
+The application allows users to create, manage and
+share book entries, organize knowledge about different
+technologies and topics, and provide links to useful
+learning resources and official documentation.
+
+## 🚀 Key Features
+
+- User registration, login and logout
+- JWT-based authentication
+- Book catalog and detailed book pages
+- Create, read, update and delete operations (CRUD)
+- Protected routes and role-based access
+- Admin dashboard
+- Book submission approval and rejection
+- REST API integration
+- Form validation and error handling
+- Loading, error and empty states
+- Responsive web design
+
+## 🛠️ Technologies
+
+| Frontend | Backend | Database & Tools |
+| --- | --- | --- |
+| React | Node.js | MongoDB |
+| JavaScript | Express.js | Mongoose |
+| HTML5 | REST API | Git & GitHub |
+| CSS3 / CSS Modules | JWT | Postman |
+| React Router | bcrypt | Vite |
+| Font Awesome | | |
+
+## 🖼️ Application Preview
+> 🚧 This project is under active development. Screenshots may reflect an earlier version of the application.
 <p align="center"><img src="https://github.com/lyklecharova/DEV-Book/blob/main/dev-book/client/public/project-image/home-page.png" alt="home" width="960"></p>
 
 <h2>Project Screenshots:</h2>
