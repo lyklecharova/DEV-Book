@@ -51,29 +51,86 @@ learning resources and official documentation.
 <p align="center"><img src="https://github.com/lyklecharova/DEV-Book/blob/main/dev-book/client/public/project-image/error-page.png" alt="page-error" width="960" height="540/"></p>
 
 
-<h2>💻 Built with</h2>
+## ⚙️ Getting Started
 
-Technologies used in the project:
-<ul>
-<li>JavaScript, HTML & CSS
-<li>React JS</li>
-<li>Node.js, Express.js and MongoDB
-<li>Using Font Awesome for icon</li>
-</ul>
+Follow the instructions below to set up and run the
+project locally.
 
-# Run application:
+### Prerequisites
 
-      * Open terminal "client" and run:
-        * `cd dev-book/client` -> `npm install` (or `npm i`)
-        * `npm run dev`
-        *  Which opens the app at http://localhost:5173 in your browser.
-        
-# Run RESTful API server:
+- Node.js (compatible with the installed Vite version)
+- npm
+- Git
+- MongoDB (local or MongoDB Atlas)
+- Google Cloud Storage credentials for image storage
 
-    * Open terminal "server" and run:
-        * `cd dev-book/server` -> `npm install` (or `npm i`)
-        * `npm run csr`
-        * server is listening at http://localhost:3030
+### 1. Clone the repository
 
+```bash
+git clone https://github.com/lyklecharova/DEV-Book.git
+cd DEV-Book
+```
+
+### 2. Backend Setup
+
+Open a terminal and navigate to the server directory:
+
+```bash
+cd dev-book/server
+npm install
+```
+
+Create a `.env` file using `.env.example` as a template
+and configure the required environment variables.
+
+```env
+PORT=3030
+JWT_SECRET=your_secret_key
+MONGO_DB_CONNECTION_STRING=your_mongodb_connection_string
+GCS_BUCKET=your_bucket_name
+GOOGLE_APPLICATION_CREDENTIALS=./gcs-key.json
+```
+
+Ensure that MongoDB is accessible and configure Google
+Cloud Storage credentials for image storage.
+
+Start the development server:
+
+```bash
+npm run csr
+```
+
+Backend URL: http://localhost:3030
+
+### 3. Frontend Setup
+
+Open a second terminal from the repository root:
+
+```bash
+cd dev-book/client
+npm install
+npm run dev
+```
+
+Frontend URL: http://localhost:5173
+
+Ensure that the frontend API configuration points to
+the local backend when running the project locally.
+
+## 🚧 Project Status
+
+DEV-Book is under active development. New features,
+UI improvements, responsive design enhancements and
+code improvements are being implemented.
+
+## 👩‍💻 Author
+
+**Lilyana Klecharova**
+
+- [GitHub](https://github.com/lyklecharova)
+
+## 📄 License
+
+This project is licensed under the MIT License.
 
        
